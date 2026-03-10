@@ -60,25 +60,25 @@ const About = () => {
     <div className="about-page">
       {/* Hero */}
       {/* Hero */}
-<div
-  className="page-hero"
-  style={{ backgroundImage: `url(${aboutHeroImage})` }}
->
-  <div className="page-hero-overlay">
-    <img src={logo} alt="Logo" className="page-hero-logo" />
-    <h1>About Us</h1>
-    <p>
-      Discover who we are and how we turn your dreams into unforgettable events.
-    </p>
-  </div>
-</div>
+      <div
+        className="page-hero"
+        style={{ backgroundImage: `url(${aboutHeroImage})` }}
+      >
+        <div className="page-hero-overlay">
+          <img src={logo} alt="Logo" className="page-hero-logo" />
+          <h1>About Us</h1>
+          <p>
+            Discover who we are and how we turn your dreams into unforgettable events.
+          </p>
+        </div>
+      </div>
 
       <div className="about-content">
         {/* How It All Began */}
         <section ref={foundersRef} className={`about-section about-founders${foundersVisible ? ' visible' : ''}`}>
           <div className="about-founders-container">
             <div className="about-founders-image-wrap">
-              <img src={friendsImage} alt="Arun, Akhil and Antony - founders of Eternal Vows Events" className="about-founders-image" />
+              <img src={friendsImage} alt="Aashiq, Antony and Ashkar - founders of Eternal Vows Events" className="about-founders-image" />
             </div>
             <div className="about-founders-text">
               <h2>How It All Began</h2>
