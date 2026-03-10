@@ -1,0 +1,139 @@
+.book-host-page {
+  min-height: calc(100vh - var(--navbar-height, 70px));
+}
+
+.book-hero {
+  background: linear-gradient(135deg, #f5d5c8 0%, #f0e4d4 100%);
+  box-shadow: 0 6px 35px rgba(245, 213, 200, 0.4), 0 0 30px rgba(240, 228, 212, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+  color: #4a4a4a;
+  padding: 4rem 2rem;
+  text-align: center;
+}
+
+.book-hero h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.book-hero p {
+  font-size: 1.3rem;
+  opacity: 0.9;
+}
+
+.book-content {
+  padding: 4rem 2rem;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.booking-form {
+  background: #ffffff;
+  box-shadow: 0 6px 25px rgba(245, 213, 200, 0.25), 0 0 20px rgba(240, 228, 212, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(232, 184, 168, 0.2);
+  box-shadow: 0 10px 30px rgba(245, 232, 223, 0.3);
+  padding: 3rem;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #333;
+  font-weight: 600;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: rgba(232, 184, 168, 0.5);
+  box-shadow: 0 2px 15px rgba(245, 213, 200, 0.3), 0 0 12px rgba(240, 228, 212, 0.25);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.btn-submit {
+  width: 100%;
+  padding: 1rem;
+  background: linear-gradient(135deg, #f5d5c8 0%, #f0e4d4 100%);
+  box-shadow: 0 6px 35px rgba(245, 213, 200, 0.4), 0 0 30px rgba(240, 228, 212, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+  color: #4a4a4a;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.btn-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(214, 218, 200, 0.4);
+  background: linear-gradient(135deg, #c4c9b6 0%, #e8d0c0 100%);
+}
+
+.error-message {
+  background: #fee;
+  color: #c33;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.success-message {
+  text-align: center;
+  padding: 4rem 2rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.success-message h2 {
+  color: #c99a7a;
+  text-shadow: 0 2px 12px rgba(245, 213, 200, 0.3), 0 0 15px rgba(240, 228, 212, 0.25);
+  margin-bottom: 1rem;
+}
+
+.success-message p {
+  color: #666;
+  margin-bottom: 2rem;
+  font-size: 1.1rem;
+}
+
+@media (max-width: 768px) {
+  .book-hero h1 {
+    font-size: 2rem;
+  }
+
+  .booking-form {
+    padding: 2rem;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+}

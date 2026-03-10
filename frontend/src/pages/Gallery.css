@@ -1,0 +1,760 @@
+.gallery-page {
+  min-height: calc(100vh - var(--navbar-height, 70px));
+  background: #faf7f2;
+}
+
+/* --- UNIVERSAL HERO --- */
+.page-hero {
+  height: calc(100vh - var(--navbar-height, 70px));
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.page-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  /* dark overlay like home */
+}
+
+.page-hero-overlay {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  color: white;
+  padding: 3rem;
+  /* SAME as home */
+  max-width: 800px;
+  /* SAME as home */
+}
+
+.page-hero-logo {
+  width: auto;
+  height: auto;
+  max-height: 110px;
+  max-width: 160px;
+  object-fit: contain;
+  filter: brightness(0) invert(0.95);
+  margin: 0 auto 1rem;
+  display: block;
+}
+
+.page-hero-overlay h1 {
+  font-size: 2.5rem;
+}
+
+.page-hero-overlay p {
+  font-size: 1.2rem;
+}
+
+/* --- GALLERY CONTENT --- */
+.gallery-content {
+  padding: 2.5rem 1rem 4rem;
+}
+
+.gallery-container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Masonry grid: 3 columns, varied heights */
+.gallery-masonry {
+  column-count: 3;
+  column-gap: 1rem;
+}
+
+.gallery-item {
+  break-inside: avoid;
+  margin-bottom: 1rem;
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  transition-delay: var(--stagger, 0s);
+}
+
+.gallery-item--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.gallery-item-inner {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  background: #fff;
+  isolation: isolate;
+  transition: box-shadow 0.25s ease;
+}
+
+.gallery-item-inner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #c99a7a;
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.6s ease-out;
+  opacity: 0.8;
+  mix-blend-mode: multiply;
+  z-index: 1;
+}
+
+.gallery-item:hover .gallery-item-inner::before {
+  transform: scaleY(1);
+}
+
+.gallery-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  position: relative;
+  z-index: 0;
+}
+
+/* Varied aspect ratios for dynamic masonry look */
+.gallery-item--tall .gallery-image {
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+}
+
+.gallery-item--wide .gallery-image {
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.gallery-item--square .gallery-image {
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
+
+.gallery-item-category-label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: #ffffff;
+  text-shadow: 0 3px 12px rgba(0, 0, 0, 0.6), 0 0 20px rgba(0, 0, 0, 0.4);
+  z-index: 1;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  white-space: nowrap;
+}
+
+.gallery-item:hover .gallery-item-category-label {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.9);
+}
+
+.gallery-item-overlay {
+  position: absolute;
+  inset: 0;
+  padding: 1.5rem 1.5rem 1.8rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  z-index: 2;
+  color: #ffffff;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.gallery-item:hover .gallery-item-overlay {
+  opacity: 1;
+}
+
+.gallery-item-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 0.75rem;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+}
+
+.gallery-item-description {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  max-width: 95%;
+  opacity: 0;
+  transform: translateY(15px);
+  transition: opacity 0.5s ease 0.1s, transform 0.5s ease 0.1s;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+}
+
+.gallery-item:hover .gallery-item-description {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 900px) {
+  .gallery-masonry {
+    column-count: 2;
+    column-gap: 0.875rem;
+  }
+
+  .gallery-item {
+    margin-bottom: 0.875rem;
+  }
+
+  .gallery-item-category-label {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .page-hero {
+    padding: 3rem 1.25rem;
+  }
+
+  .page-hero-overlay h1 {
+    font-size: 2rem;
+  }
+
+  .page-hero-overlay p {
+    font-size: 1rem;
+  }
+
+  .gallery-content {
+    padding: 1.5rem 0.75rem 3rem;
+  }
+
+  .gallery-masonry {
+    column-count: 2;
+    column-gap: 0.5rem;
+  }
+
+  .gallery-item {
+    margin-bottom: 0.5rem;
+  }
+
+  /* Smaller image aspect ratios on mobile */
+  .gallery-item--tall .gallery-image {
+    aspect-ratio: 2 / 3;
+    max-height: 220px;
+  }
+
+  .gallery-item--wide .gallery-image {
+    aspect-ratio: 3 / 2;
+    max-height: 160px;
+  }
+
+  .gallery-item--square .gallery-image {
+    aspect-ratio: 1 / 1;
+    max-height: 160px;
+  }
+
+  .page-hero-logo {
+    width: 90px;
+  }
+
+  .gallery-item-category-label {
+    font-size: 0.95rem;
+    letter-spacing: 0.04em;
+  }
+
+  .gallery-item-overlay {
+    padding: 0.75rem;
+  }
+
+  .gallery-item-title {
+    font-size: 0.85rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .gallery-item-description {
+    font-size: 0.75rem;
+    line-height: 1.4;
+  }
+}
+
+/* ── Our Stage Works section ── */
+.stage-works-section {
+  padding: 0 1rem 4rem;
+  background: #faf7f2;
+}
+
+.stage-works-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding-top: 2.5rem;
+}
+
+.stage-works-title {
+  font-size: clamp(1.85rem, 3.6vw, 2.6rem);
+  font-weight: 600;
+  color: #c99a7a;
+  font-family: Georgia, serif;
+  letter-spacing: 0.03em;
+  margin-bottom: 1rem;
+}
+
+.stage-works-divider {
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(135deg, #c99a7a, #f5d5c8);
+  border-radius: 2px;
+  margin: 0 auto;
+}
+
+/* Gallery items without hover text overlays (stage images) */
+.gallery-item-inner--no-overlay::before {
+  display: none;
+}
+
+.gallery-item-inner--no-overlay .gallery-item-overlay,
+.gallery-item-inner--no-overlay .gallery-item-category-label {
+  display: none;
+}
+
+/* See More button container */
+.stage-see-more-wrap {
+  text-align: center;
+  margin-top: 2.5rem;
+}
+
+/* Button — animated water wave fill on hover */
+.stage-see-more-btn {
+  position: relative;
+  display: inline-block;
+  padding: 0.9rem 2.25rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #c99a7a;
+  background: transparent;
+  border: 2px solid #c99a7a;
+  border-radius: 8px;
+  text-decoration: none;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  overflow: hidden;
+  z-index: 0;
+  transition: color 0.5s ease, box-shadow 0.5s ease;
+  box-shadow: 0 4px 14px rgba(201, 154, 122, 0.2);
+  font-family: inherit;
+}
+
+/* Primary water fill */
+.stage-see-more-btn::after {
+  content: '';
+  position: absolute;
+  left: -10%;
+  bottom: -10px;
+  width: 120%;
+  height: 0;
+  background: #c99a7a;
+  border-radius: 40% 60% 0 0 / 30px 40px 0 0;
+  transition: height 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  z-index: -1;
+  animation: none;
+}
+
+/* Secondary ripple wave */
+.stage-see-more-btn::before {
+  content: '';
+  position: absolute;
+  left: -10%;
+  bottom: -10px;
+  width: 120%;
+  height: 0;
+  background: rgba(201, 154, 122, 0.55);
+  border-radius: 60% 40% 0 0 / 40px 30px 0 0;
+  transition: height 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.06s;
+  z-index: -2;
+}
+
+.stage-see-more-btn:hover::after {
+  height: 160%;
+  animation: galWaveRipple 1.4s ease-in-out infinite;
+}
+
+.stage-see-more-btn:hover::before {
+  height: 180%;
+  animation: galWaveRipple2 1.6s ease-in-out infinite 0.2s;
+}
+
+@keyframes galWaveRipple {
+
+  0%,
+  100% {
+    border-radius: 40% 60% 0 0 / 30px 40px 0 0;
+  }
+
+  50% {
+    border-radius: 60% 40% 0 0 / 40px 25px 0 0;
+  }
+}
+
+@keyframes galWaveRipple2 {
+
+  0%,
+  100% {
+    border-radius: 60% 40% 0 0 / 40px 30px 0 0;
+  }
+
+  50% {
+    border-radius: 35% 65% 0 0 / 25px 45px 0 0;
+  }
+}
+
+.stage-see-more-btn:hover {
+  color: #fff;
+  box-shadow: 0 6px 22px rgba(201, 154, 122, 0.55);
+}
+
+/* ── Lightbox / Fullscreen Viewer ── */
+.lightbox-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: lightboxFadeIn 0.22s ease;
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+
+@keyframes lightboxFadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.lightbox-content {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 92vw;
+  max-height: 90vh;
+}
+
+.lightbox-image {
+  display: block;
+  max-width: 88vw;
+  max-height: 85vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 6px;
+  box-shadow: 0 8px 60px rgba(0, 0, 0, 0.7);
+  animation: lightboxZoomIn 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  user-select: none;
+}
+
+@keyframes lightboxZoomIn {
+  from {
+    transform: scale(0.88);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Close button */
+.lightbox-close {
+  position: fixed;
+  top: 1.2rem;
+  right: 1.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  color: #fff;
+  font-size: 1.4rem;
+  line-height: 1;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease, transform 0.2s ease;
+  z-index: 10001;
+}
+
+.lightbox-close:hover {
+  background: rgba(255, 255, 255, 0.22);
+  transform: rotate(90deg) scale(1.1);
+}
+
+/* Arrow buttons */
+.lightbox-arrow {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  color: #fff;
+  font-size: 3rem;
+  line-height: 1;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease, transform 0.2s ease;
+  z-index: 10001;
+  user-select: none;
+  padding-bottom: 4px;
+}
+
+.lightbox-arrow:hover {
+  background: rgba(201, 154, 122, 0.6);
+  border-color: #c99a7a;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.lightbox-arrow--left {
+  left: 1.5rem;
+}
+
+.lightbox-arrow--right {
+  right: 1.5rem;
+}
+
+/* Counter pill */
+.lightbox-counter {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.55);
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.88rem;
+  font-family: Georgia, serif;
+  letter-spacing: 0.08em;
+  padding: 0.35rem 1rem;
+  border-radius: 50px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  z-index: 10001;
+  user-select: none;
+}
+
+/* Mobile tweaks for lightbox */
+@media (max-width: 600px) {
+  .lightbox-arrow {
+    width: 44px;
+    height: 44px;
+    font-size: 2.2rem;
+  }
+
+  .lightbox-arrow--left {
+    left: 0.5rem;
+  }
+
+  .lightbox-arrow--right {
+    right: 0.5rem;
+  }
+
+  .lightbox-image {
+    max-width: 96vw;
+    max-height: 78vh;
+    border-radius: 4px;
+  }
+
+  .lightbox-close {
+    top: 0.75rem;
+    right: 0.75rem;
+    width: 38px;
+    height: 38px;
+    font-size: 1.1rem;
+  }
+}
+
+/* ── Our Auspicious Moments Section ── */
+.auspicious-section {
+  padding: 0 1rem 4rem;
+  background: #faf7f2;
+}
+
+/* Each video row: alternating left/right — mirrors Services.js layout */
+.auspicious-row {
+  display: grid;
+  grid-template-columns: minmax(0, 8cm) minmax(0, 1fr);
+  gap: 3rem;
+  align-items: center;
+  margin-bottom: 4.5rem;
+  min-height: 320px;
+}
+
+/* Video on left, text on right */
+.auspicious-row--left {
+  grid-template-columns: minmax(0, 8cm) minmax(0, 1fr);
+}
+
+/* Text on left, video on right */
+.auspicious-row--right {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 8cm);
+}
+
+.auspicious-row--right .auspicious-video-wrap {
+  order: 2;
+}
+
+.auspicious-row--right .auspicious-content {
+  order: 1;
+}
+
+/* Video container — same dimensions / shadows as .service-image-wrap */
+.auspicious-video-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 8cm;
+  aspect-ratio: 3 / 4;
+  cursor: pointer;
+
+  box-shadow:
+    0 15px 45px rgba(245, 213, 200, 0.35),
+    0 0 25px rgba(240, 228, 212, 0.25);
+
+  transition:
+    box-shadow 0.6s ease;
+}
+
+/* Decorative corner stroke — same as service-image-wrap::after */
+.auspicious-video-wrap::after {
+  content: "";
+  position: absolute;
+  top: -0.7cm;
+  left: -0.7cm;
+  right: 0.3cm;
+  bottom: 0.3cm;
+
+  border-left: 4px solid #c99a7a;
+  border-bottom: 4px solid #c99a7a;
+
+  border-radius: 30px;
+  filter: blur(0.4px);
+  opacity: 0.85;
+  transform: rotate(-1deg);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.auspicious-video-inner {
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+/* The video element */
+.auspicious-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 20px;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+/* Hover: zoom the video (same as .service-image-wrap:hover .service-image) */
+.auspicious-video-wrap:hover .auspicious-video {
+  transform: scale(1.06);
+}
+
+/* Hover glow on the container */
+.auspicious-video-wrap:hover {
+  box-shadow:
+    0 20px 55px rgba(245, 213, 200, 0.45),
+    0 0 35px rgba(240, 228, 212, 0.35);
+}
+
+/* Dark overlay that fades in on hover — same as gallery-item-inner::before */
+.auspicious-video-inner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 20px;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.auspicious-video-wrap:hover .auspicious-video-inner::before {
+  opacity: 1;
+}
+
+/* Text side */
+.auspicious-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Subheading — matches .wedding-section-title / .baptism-section-title sizes */
+.auspicious-subheading {
+  color: #c99a7a;
+  font-size: clamp(1.85rem, 3.6vw, 2.6rem);
+  font-family: Georgia, serif;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  margin-bottom: 0.75rem;
+  text-shadow: 0 2px 12px rgba(245, 213, 200, 0.3), 0 0 15px rgba(240, 228, 212, 0.25);
+}
+
+/* Body text — matches .wedding-section-text */
+.auspicious-text {
+  color: #4a4a4a;
+  line-height: 1.7;
+  font-size: 1.05rem;
+}
+
+/* Mobile: stack vertically */
+@media (max-width: 768px) {
+
+  .auspicious-row,
+  .auspicious-row--left,
+  .auspicious-row--right {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .auspicious-row--right .auspicious-video-wrap,
+  .auspicious-row--right .auspicious-content {
+    order: unset;
+  }
+
+  .auspicious-video-wrap {
+    max-width: 100%;
+    aspect-ratio: 16 / 9;
+    margin: 0 auto;
+  }
+
+  .auspicious-content {
+    text-align: center;
+  }
+
+  .auspicious-subheading {
+    font-size: clamp(1.3rem, 5vw, 1.8rem);
+  }
+
+  .auspicious-text {
+    font-size: 0.95rem;
+  }
+}

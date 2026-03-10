@@ -1,0 +1,775 @@
+/* ═══════════════════════════════════════════════════════════════════
+   BookEvent.css  –  Premium event-booking form
+   ═══════════════════════════════════════════════════════════════════ */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500;600&display=swap');
+
+/* ── Page wrapper ─────────────────────────────────────────────────── */
+.book-event-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #fdf6f0 0%, #faeae0 40%, #f5d5c8 100%);
+  position: relative;
+  overflow: hidden;
+  z-index: 0;
+}
+
+/* ── Vignette overlay ─────────────────────────────────────────────── */
+.book-event-page::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  background: radial-gradient(ellipse at 50% 50%,
+      transparent 45%,
+      rgba(210, 160, 130, 0.18) 65%,
+      rgba(180, 110, 80, 0.32) 82%,
+      rgba(140, 75, 50, 0.42) 100%);
+}
+
+
+/* Soft decorative blob (top-right only — ::after is used by vignette) */
+.book-event-page::before {
+  content: '';
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(245, 213, 200, 0.55) 0%, transparent 70%);
+  top: -200px;
+  right: -200px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Floating glow dots */
+.glow-dot {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.85), transparent 70%);
+  filter: blur(30px);
+  animation: floatGlow 14s ease-in-out infinite;
+  z-index: 0;
+}
+
+@keyframes floatGlow {
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-40px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* ── Hero banner ──────────────────────────────────────────────────── */
+.book-hero {
+  position: relative;
+  z-index: 1;
+  padding: 4.5rem 2rem 3rem;
+  text-align: center;
+}
+
+.book-hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 3.2rem;
+  font-weight: 600;
+  color: #2d1e15;
+  margin: 0 0 0.75rem;
+  letter-spacing: -0.5px;
+}
+
+.book-hero p {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.15rem;
+  color: #7a6558;
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* ── Content area ─────────────────────────────────────────────────── */
+.book-content {
+  position: relative;
+  z-index: 1;
+  padding: 0 2rem 5rem;
+}
+
+.container {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+/* ── Booking Form Card ────────────────────────────────────────────── */
+.booking-form {
+  background: rgba(255, 255, 255, 0.84);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow:
+    0 8px 40px rgba(180, 120, 90, 0.13),
+    0 2px 8px rgba(0, 0, 0, 0.06);
+  padding: 2rem 2.2rem;
+  position: relative;
+  overflow: hidden;
+  animation: cardSlideUp 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes cardSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(28px) scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Animated shimmer accent bar at the top of the card */
+.booking-form::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #e8a598, #d4825a, #c96a3e, #d4825a, #e8a598);
+  background-size: 200% 100%;
+  animation: shimmerBar 2.5s linear infinite;
+  border-radius: 24px 24px 0 0;
+}
+
+@keyframes shimmerBar {
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* ── Form groups ──────────────────────────────────────────────────── */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #4a3728;
+  letter-spacing: 0.2px;
+  display: block;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 0.6rem 0.85rem;
+  border: 1.5px solid #e8ddd8;
+  border-radius: 10px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.88rem;
+  color: #2d1e15;
+  background: rgba(255, 255, 255, 0.72);
+  outline: none;
+  transition: all 0.22s ease;
+  box-sizing: border-box;
+}
+
+/* ── Field-level error state ─────────────────────────────────────── */
+.form-group .input-error {
+  border-color: #e53935 !important;
+  background: rgba(229, 57, 53, 0.04) !important;
+  box-shadow: 0 0 0 3px rgba(229, 57, 53, 0.12) !important;
+}
+
+.field-error-msg {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.76rem;
+  font-weight: 500;
+  color: #e53935;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 1px;
+}
+
+.field-error-msg::before {
+  content: '⚠';
+  font-size: 0.7rem;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: #c0aea4;
+  font-size: 0.87rem;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: #d4825a;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(212, 130, 90, 0.13);
+}
+
+.form-group select {
+  cursor: pointer;
+  appearance: auto;
+  max-height: 38px;
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 110px;
+  line-height: 1.6;
+}
+
+/* Two-column date/time row */
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+/* Pre-filled services field highlight */
+.form-prefilled {
+  background: rgba(245, 213, 200, 0.18) !important;
+  border-color: rgba(212, 130, 90, 0.4) !important;
+}
+
+.form-prefilled:focus {
+  background: #fff !important;
+}
+
+/* ── Terms & Conditions Checkbox ──────────────────────────────────── */
+.form-group-checkbox {
+  margin-bottom: 1.6rem;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.1rem;
+  cursor: pointer;
+  padding: 1rem 1.2rem;
+  background: rgba(245, 213, 200, 0.18);
+  border: 1.5px solid rgba(212, 130, 90, 0.25);
+  border-radius: 12px;
+  transition: all 0.2s ease;
+  line-height: 1.55;
+}
+
+.checkbox-label:hover {
+  background: rgba(245, 213, 200, 0.32);
+  border-color: rgba(212, 130, 90, 0.45);
+}
+
+/* Hide native checkbox, use custom */
+.booking-terms-checkbox {
+  width: 20px !important;
+  height: 20px !important;
+  min-width: 20px;
+  padding: 0 !important;
+  border: 2px solid #c96a3e !important;
+  border-radius: 5px !important;
+  cursor: pointer;
+  accent-color: #c96a3e;
+  margin-top: 2px;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.booking-terms-checkbox:checked {
+  box-shadow: 0 0 0 3px rgba(201, 106, 62, 0.15);
+}
+
+.checkbox-label span {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.88rem;
+  color: #5a3520;
+  line-height: 1.55;
+}
+
+.booking-policy-link {
+  color: #c96a3e;
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(201, 106, 62, 0.4);
+  transition: all 0.2s ease;
+}
+
+.booking-policy-link:hover {
+  color: #b05030;
+  border-bottom-color: #b05030;
+}
+
+/* Inline hint shown when terms not accepted yet */
+.terms-hint {
+  font-size: 0.78rem;
+  color: #c96a3e;
+  font-style: italic;
+  margin-left: 2px;
+}
+
+/* ── Submit Button ────────────────────────────────────────────────── */
+.form-submit-row {
+  display: flex;
+  justify-content: center;
+  margin-top: 0.6rem;
+}
+
+.btn-submit {
+  display: inline-block;
+  width: auto;
+  padding: 0.65rem 2.4rem;
+  background: linear-gradient(135deg, #c99a7a 0%, #b8956e 50%, #a67c5e 100%);
+  background-size: 200% 100%;
+  border: none;
+  border-radius: 10px;
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(201, 154, 122, 0.42);
+}
+
+.btn-submit:hover:not(:disabled) {
+  background-position: right center;
+  box-shadow: 0 7px 22px rgba(201, 154, 122, 0.6);
+  transform: translateY(-2px);
+}
+
+.btn-submit:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.btn-submit:disabled {
+  background: linear-gradient(135deg, #d4c2b8, #c4b2a8);
+  box-shadow: none;
+  cursor: not-allowed;
+  color: rgba(255, 255, 255, 0.7);
+  opacity: 0.75;
+}
+
+/* ── Auth notices ─────────────────────────────────────────────────── */
+.form-auth-notice {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  background: rgba(245, 213, 200, 0.38);
+  border: 1.5px dashed #d4825a;
+  border-radius: 11px;
+  padding: 0.9rem 1.2rem;
+  margin-bottom: 1.8rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  color: #5a3520;
+}
+
+.form-auth-link {
+  color: #c96a3e;
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px solid #c96a3e;
+  transition: color 0.2s ease;
+}
+
+.form-auth-link:hover {
+  color: #b05030;
+}
+
+.form-auth-sep {
+  color: #a09088;
+}
+
+.auth-warning-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  background: rgba(255, 165, 0, 0.09);
+  border: 1.5px solid rgba(255, 165, 0, 0.38);
+  border-radius: 12px;
+  padding: 1rem 1.4rem;
+  margin-bottom: 1.5rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.92rem;
+  color: #7a5000;
+  flex-wrap: wrap;
+}
+
+.auth-warning-btn {
+  display: inline-block;
+  padding: 0.45rem 1.2rem;
+  background: linear-gradient(135deg, #d4825a, #c96a3e);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  transition: all 0.25s ease;
+  white-space: nowrap;
+}
+
+.auth-warning-btn:hover {
+  background: linear-gradient(135deg, #c96a3e, #b85c32);
+  transform: translateY(-1px);
+}
+
+/* Block error when submitting without login */
+.auth-block-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+  background: rgba(220, 80, 60, 0.06);
+  border: 1.5px solid rgba(220, 80, 60, 0.22);
+  border-radius: 12px;
+  padding: 1.2rem;
+  text-align: center;
+  margin-bottom: 1rem;
+  font-family: 'Inter', sans-serif;
+}
+
+.auth-block-error p {
+  color: #b03020;
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+.auth-block-btn {
+  display: inline-block;
+  padding: 0.55rem 1.6rem;
+  background: linear-gradient(135deg, #d4825a, #c96a3e);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.25s ease;
+}
+
+.auth-block-btn:hover {
+  background: linear-gradient(135deg, #c96a3e, #b85c32);
+  transform: translateY(-1px);
+}
+
+/* Inline error */
+.error-message {
+  background: rgba(220, 80, 60, 0.08);
+  border: 1px solid rgba(220, 80, 60, 0.22);
+  color: #b03020;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.88rem;
+  text-align: center;
+}
+
+/* ── Toast notification ──────────────────────────────────────────── */
+.booking-toast {
+  position: fixed;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  background: linear-gradient(135deg, #2e7d32, #388e3c);
+  color: #fff;
+  padding: 0.85rem 1.8rem;
+  border-radius: 50px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  box-shadow: 0 8px 32px rgba(46, 125, 50, 0.35);
+  animation: toastIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both,
+    toastOut 0.4s ease 2.1s forwards;
+  white-space: nowrap;
+}
+
+.booking-toast-icon {
+  font-size: 1.2rem;
+}
+
+@keyframes toastIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-24px) scale(0.92);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+}
+
+@keyframes toastOut {
+  from {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-16px) scale(0.96);
+  }
+}
+
+/* ── My Bookings Status Section ───────────────────────────────────── */
+.my-bookings-section {
+  margin-bottom: 2.5rem;
+}
+
+.my-bookings-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #2d1e15;
+  margin-bottom: 1.2rem;
+  font-family: 'Playfair Display', serif;
+}
+
+.my-bookings-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.loading-text {
+  color: #9a7060;
+  font-style: italic;
+  padding: 0.5rem 0;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Booking status cards */
+.booking-status-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.2rem;
+  padding: 1.2rem 1.4rem;
+  border-radius: 14px;
+  border: 1.5px solid transparent;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  transition: all 0.2s ease;
+}
+
+.booking-status-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.07);
+}
+
+.status-confirmed {
+  background: rgba(76, 175, 80, 0.08);
+  border-color: rgba(76, 175, 80, 0.3);
+}
+
+.status-cancelled {
+  background: rgba(244, 67, 54, 0.07);
+  border-color: rgba(244, 67, 54, 0.25);
+}
+
+.status-pending {
+  background: rgba(255, 152, 0, 0.08);
+  border-color: rgba(255, 152, 0, 0.3);
+}
+
+.status-card-icon {
+  font-size: 1.8rem;
+  flex-shrink: 0;
+  line-height: 1;
+  margin-top: 2px;
+}
+
+.status-card-body {
+  flex: 1;
+}
+
+.status-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.4rem;
+}
+
+.status-event-type {
+  font-weight: 700;
+  font-size: 1rem;
+  color: #2d1e15;
+  font-family: 'Inter', sans-serif;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 3px 12px;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-family: 'Inter', sans-serif;
+}
+
+.status-badge-confirmed {
+  background: rgba(76, 175, 80, 0.15);
+  color: #2e7d32;
+}
+
+.status-badge-cancelled {
+  background: rgba(244, 67, 54, 0.12);
+  color: #c62828;
+}
+
+.status-badge-pending {
+  background: rgba(255, 152, 0, 0.15);
+  color: #e65100;
+}
+
+.status-date {
+  font-size: 0.83rem;
+  color: #7a6558;
+  margin: 0.2rem 0 0.5rem;
+  font-family: 'Inter', sans-serif;
+}
+
+.status-message {
+  font-size: 0.9rem;
+  color: #555;
+  margin: 0;
+  line-height: 1.55;
+  font-family: 'Inter', sans-serif;
+}
+
+.status-confirmed .status-message {
+  color: #2e7d32;
+}
+
+.status-cancelled .status-message {
+  color: #c62828;
+}
+
+.status-pending .status-message {
+  color: #e65100;
+  font-style: italic;
+}
+
+/* ── Responsive ───────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .book-hero h1 {
+    font-size: 2.1rem;
+  }
+
+  .book-hero p {
+    font-size: 1rem;
+  }
+
+  .booking-form {
+    padding: 1.5rem 1.1rem 1.6rem;
+    border-radius: 18px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .checkbox-label {
+    padding: 0.85rem 1rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .book-hero {
+    padding: 3rem 1rem 2rem;
+  }
+
+  .book-content {
+    padding: 0 1rem 4rem;
+  }
+}
+
+/* ── Status Card Close Button ─────────────────────────────────────── */
+
+/* Make the card position:relative so the close btn can be positioned inside */
+.booking-status-card {
+  position: relative;
+}
+
+.status-card-close-btn {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1rem;
+  line-height: 1;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  z-index: 2;
+}
+
+/* ── Confirmed variant: green glow */
+.status-confirmed .status-card-close-btn {
+  background: rgba(46, 125, 50, 0.12);
+  color: #2e7d32;
+  box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.25);
+}
+.status-confirmed .status-card-close-btn:hover {
+  background: rgba(46, 125, 50, 0.22);
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.45), 0 2px 8px rgba(46, 125, 50, 0.25);
+  transform: scale(1.15) rotate(90deg);
+}
+
+/* ── Cancelled variant: red tint */
+.status-cancelled .status-card-close-btn {
+  background: rgba(198, 40, 40, 0.10);
+  color: #c62828;
+  box-shadow: 0 0 0 2px rgba(244, 67, 54, 0.22);
+}
+.status-cancelled .status-card-close-btn:hover {
+  background: rgba(198, 40, 40, 0.20);
+  box-shadow: 0 0 0 3px rgba(244, 67, 54, 0.4), 0 2px 8px rgba(198, 40, 40, 0.22);
+  transform: scale(1.15) rotate(90deg);
+}
+
+/* ── Pending variant: amber tint */
+.status-pending .status-card-close-btn {
+  background: rgba(230, 81, 0, 0.10);
+  color: #e65100;
+  box-shadow: 0 0 0 2px rgba(255, 152, 0, 0.25);
+}
+.status-pending .status-card-close-btn:hover {
+  background: rgba(230, 81, 0, 0.20);
+  box-shadow: 0 0 0 3px rgba(255, 152, 0, 0.4), 0 2px 8px rgba(230, 81, 0, 0.2);
+  transform: scale(1.15) rotate(90deg);
+}
+
+.status-card-close-btn:active {
+  transform: scale(0.92) rotate(90deg);
+}

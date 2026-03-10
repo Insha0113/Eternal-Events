@@ -1,0 +1,450 @@
+/* Reviews section – matches Eternal Events theme */
+.reviews-section {
+  padding: 4rem 1.5rem;
+  background: linear-gradient(180deg, #fdf6f0 0%, #f5d5c8 100%);
+}
+
+.reviews-container {
+  max-width: 640px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.reviews-heading {
+  font-size: clamp(1.85rem, 3.6vw, 2.6rem);
+  font-family: Georgia, serif;
+  color: #c99a7a;
+  margin-bottom: 2rem;
+  font-weight: 600;
+  text-align: center;
+  letter-spacing: 0.03em;
+}
+
+/* ─── Carousel ─── */
+.reviews-carousel {
+  overflow: hidden;
+  min-height: 190px;
+  margin-bottom: 1.5rem;
+}
+
+.reviews-carousel-inner {
+  animation: reviewSlideIn 0.5s ease-out;
+}
+
+.reviews-carousel-inner.slide-out {
+  animation: reviewSlideOut 0.4s ease-in forwards;
+}
+
+@keyframes reviewSlideOut {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  to {
+    opacity: 0.3;
+    transform: translateX(80px);
+  }
+}
+
+@keyframes reviewSlideIn {
+  from {
+    opacity: 0.3;
+    transform: translateX(-60px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.review-card {
+  background: #fff;
+  border-radius: 1rem;
+  padding: 1.75rem 1.5rem;
+  box-shadow: 0 4px 20px rgba(184, 149, 110, 0.12);
+  border: 1px solid rgba(232, 184, 168, 0.35);
+  text-align: left;
+}
+
+/* Row: avatar + name/stars */
+.review-card-top {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin-bottom: 0.85rem;
+}
+
+.review-card-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+/* ─── Avatar ─── */
+.review-avatar-img {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(232, 184, 168, 0.5);
+  flex-shrink: 0;
+}
+
+.review-avatar-placeholder {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #ede0d6;
+  border: 2px solid rgba(232, 184, 168, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.review-avatar-blank {
+  background: #ede0d6;
+}
+
+.review-avatar-placeholder span {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #8b6a55;
+  line-height: 1;
+}
+
+.review-stars {
+  color: #f5c046;
+  font-size: 1.1rem;
+  letter-spacing: 0.1em;
+  margin: 0;
+}
+
+.review-text {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #4a4a4a;
+  margin: 0;
+  font-style: italic;
+}
+
+.review-author {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #6b5a4a;
+  margin: 0;
+}
+
+/* ─── Dots ─── */
+.reviews-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.reviews-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(184, 149, 110, 0.35);
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.reviews-dot:hover {
+  background: rgba(184, 149, 110, 0.6);
+}
+
+.reviews-dot.active {
+  background: linear-gradient(135deg, #c9a88e 0%, #b8956e 100%);
+  transform: scale(1.2);
+}
+
+/* ─── Feedback form card ─── */
+.reviews-feedback {
+  background: #fff;
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 0 4px 24px rgba(184, 149, 110, 0.1);
+  border: 1px solid rgba(232, 184, 168, 0.3);
+  overflow: visible;
+  position: relative;
+}
+
+.reviews-feedback-heading {
+  font-size: 1.2rem;
+  color: #4a4a4a;
+  margin: 0 0 1.25rem 0;
+  font-weight: 600;
+}
+
+/* ─── Auth Banner ─── */
+.reviews-auth-banner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.85rem;
+  background: linear-gradient(135deg, #fff5f0, #ffeae0);
+  border: 1.5px solid #e8b896;
+  border-radius: 0.75rem;
+  padding: 1.1rem 2.5rem 1.1rem 1.25rem;
+  margin-bottom: 1.25rem;
+  text-align: center;
+  animation: bannerFadeIn 0.3s ease;
+}
+
+@keyframes bannerFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.reviews-auth-banner-msg {
+  font-size: 0.95rem;
+  color: #5a3e2e;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.reviews-auth-banner-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.reviews-auth-btn {
+  display: inline-block;
+  padding: 0.5rem 1.4rem;
+  border-radius: 2rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: filter 0.2s, transform 0.15s;
+}
+
+.reviews-auth-btn:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+}
+
+.reviews-auth-btn-login {
+  background: linear-gradient(135deg, #c9a88e, #b8956e);
+  color: #fff;
+}
+
+.reviews-auth-btn-signup {
+  background: #fff;
+  color: #b8956e;
+  border: 1.5px solid #b8956e;
+}
+
+.reviews-auth-banner-close {
+  position: absolute;
+  top: 0.55rem;
+  right: 0.75rem;
+  background: none;
+  border: none;
+  font-size: 0.85rem;
+  color: #a07860;
+  cursor: pointer;
+  padding: 2px 4px;
+  line-height: 1;
+}
+
+.reviews-auth-banner-close:hover {
+  color: #5a3e2e;
+}
+
+/* ─── Form ─── */
+.reviews-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  text-align: left;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.reviews-input,
+.reviews-textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(232, 184, 168, 0.5);
+  font-size: 1rem;
+  color: #4a4a4a;
+  background: #faf7f2;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.reviews-input::placeholder,
+.reviews-textarea::placeholder {
+  color: #888;
+}
+
+.reviews-input:focus,
+.reviews-textarea:focus {
+  outline: none;
+  border-color: #b8956e;
+  box-shadow: 0 0 0 2px rgba(184, 149, 110, 0.2);
+}
+
+.reviews-textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* ─── Rating row ─── */
+.reviews-rating-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  overflow: visible;
+}
+
+.reviews-rating-label {
+  font-size: 0.9rem;
+  color: #4a4a4a;
+  font-weight: 500;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* Star container — NEVER stretches, always wraps tightly around 5 stars */
+.reviews-stars-input {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0;
+  align-items: center;
+  overflow: visible;
+  flex: 0 0 auto;
+  /* key: don't grow, stay as small as content */
+  width: auto;
+}
+
+/* ─── Star buttons — fixed 30px each, 5 × 30px = 150px total ─── */
+.reviews-star-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  width: 30px;
+  /* ← FIXED width, never changes */
+  height: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  flex-shrink: 0;
+  flex-grow: 0;
+  /* ← never grows to fill extra space */
+  transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.15s ease;
+}
+
+/* Inactive star (☆) */
+.reviews-star-btn.inactive {
+  color: #f5c046;
+}
+
+/* Active star (★) */
+.reviews-star-btn.active {
+  color: #f5c046;
+  filter: drop-shadow(0 0 3px rgba(245, 192, 70, 0.4));
+}
+
+/* Hover */
+.reviews-star-btn:hover {
+  transform: scale(1.25) translateY(-2px);
+  filter: drop-shadow(0 0 6px rgba(245, 192, 70, 0.7));
+  color: #f0b800;
+}
+
+/* ─── Submit button ─── */
+.reviews-submit {
+  padding: 0.85rem 1.5rem;
+  border-radius: 2rem;
+  border: none;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(135deg, #c9a88e 0%, #b8956e 100%);
+  cursor: pointer;
+  transition: filter 0.2s, box-shadow 0.2s;
+  margin-top: 0.25rem;
+  align-self: center;
+}
+
+.reviews-submit:hover {
+  filter: brightness(1.08);
+  box-shadow: 0 4px 16px rgba(184, 149, 110, 0.35);
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 768px) {
+  .reviews-section {
+    padding: 3rem 0.75rem;
+  }
+
+  .reviews-heading {
+    font-size: clamp(1.6rem, 5vw, 2.6rem);
+  }
+
+  .review-card {
+    padding: 1.25rem 1rem;
+  }
+
+  .reviews-feedback {
+    padding: 1.25rem 0.85rem;
+  }
+
+  .reviews-feedback-heading {
+    font-size: 1.1rem;
+  }
+
+  /* Rating row — compact on mobile */
+  .reviews-rating-wrap {
+    gap: 0.35rem;
+    overflow: visible;
+  }
+
+  .reviews-rating-label {
+    font-size: 0.85rem;
+  }
+
+  /* Stars container — auto width, never stretches */
+  .reviews-stars-input {
+    flex: 0 0 auto;
+    width: auto;
+    gap: 0;
+  }
+
+  /* Each star — slightly smaller on mobile: 26px × 5 = 130px total */
+  .reviews-star-btn {
+    width: 26px !important;
+    height: 26px !important;
+    font-size: 1.3rem !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    flex-shrink: 0 !important;
+    flex-grow: 0 !important;
+  }
+
+  .reviews-auth-banner {
+    padding: 1rem 2.2rem 1rem 1rem;
+  }
+}

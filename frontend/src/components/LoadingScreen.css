@@ -1,0 +1,87 @@
+/* ── Loading Screen ── */
+.loading-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: linear-gradient(135deg, #f5d5c8 0%, #f0e4d4 60%, #ede0d2 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.5s ease;
+    opacity: 1;
+}
+
+.loading-screen--fade {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.loading-screen-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.loading-screen-logo {
+    width: 90px;
+    height: auto;
+    /* Apply a warm dark sepia-brown tone so the logo is clearly visible
+       against the light rose/cream loading screen background */
+    filter: brightness(0) saturate(100%) invert(32%) sepia(40%) saturate(600%) hue-rotate(345deg) brightness(0.7);
+    animation: loadingLogoPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes loadingLogoPulse {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.85;
+        transform: scale(1.04);
+    }
+}
+
+.loading-screen-brand {
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: #a07858;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-family: Georgia, serif;
+    margin: 0;
+    text-shadow: 0 1px 6px rgba(160, 120, 88, 0.15);
+}
+
+/* ── Horizontal loading bar ── */
+.loading-bar-track {
+    width: 220px;
+    height: 3px;
+    background: rgba(201, 154, 122, 0.2);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-top: 0.5rem;
+}
+
+.loading-bar-fill {
+    height: 100%;
+    width: 40%;
+    background: #c99a7a;
+    border-radius: 3px;
+    box-shadow: 0 0 10px rgba(201, 154, 122, 0.5);
+    animation: loadingBarSlide 1s ease-in-out infinite;
+}
+
+@keyframes loadingBarSlide {
+    0% {
+        transform: translateX(-150%);
+    }
+
+    100% {
+        transform: translateX(350%);
+    }
+}

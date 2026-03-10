@@ -1,0 +1,519 @@
+/* ═══════════════════════════════════════════════════════════════════
+   Navbar.css
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ── Outer bar ────────────────────────────────────────────────────── */
+.navbar {
+  background: linear-gradient(135deg, #f5d5c8 0%, #f0e4d4 100%);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  padding: 0.75rem 0;
+  position: fixed;
+  /* fixed so scroll-reveal works */
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1002;
+  /* Smooth slide transition */
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.3s ease;
+}
+
+/* When hidden, slide it up off-screen */
+.navbar--hidden {
+  transform: translateY(-100%);
+  box-shadow: none;
+}
+
+/* ── Push page content below fixed navbar ─────────────────────────── */
+/* Add the same spacer to <body> or root via global CSS if needed.
+   We expose a CSS variable so pages can read the height. */
+:root {
+  --navbar-height: 70px;
+}
+
+/* ── Inner container ──────────────────────────────────────────────── */
+.navbar-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+/* ── Logo ─────────────────────────────────────────────────────────── */
+.navbar-logo {
+  text-decoration: none;
+  transition: transform 0.3s ease;
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+  /* Push logo to the left edge; menu fills remaining space */
+  margin-right: auto;
+}
+
+.navbar-logo:hover {
+  transform: scale(1.05);
+}
+
+.logo-image {
+  height: 2.5cm;
+  /* desktop height */
+  width: auto;
+  max-width: 120px;
+  /* prevent stretching */
+  object-fit: contain;
+  display: block;
+  filter: brightness(0) contrast(1.15);
+  z-index: 1;
+  position: relative;
+}
+
+/* Silver-shine sweep on logo */
+.navbar-logo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0) 44%,
+      rgba(190, 190, 190, .25) 47%,
+      rgba(255, 255, 255, .95) 50%,
+      rgba(220, 220, 220, .45) 53%,
+      rgba(255, 255, 255, 0) 56%,
+      rgba(255, 255, 255, 0) 100%);
+  background-size: 240% 100%;
+  animation: silverShine 2.8s linear infinite;
+  mix-blend-mode: screen;
+  opacity: 0.65;
+  pointer-events: none;
+  z-index: 2;
+  mask-image: url('../assets/images/logo (2).png');
+  -webkit-mask-image: url('../assets/images/logo (2).png');
+  mask-size: contain;
+  -webkit-mask-size: contain;
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  mask-position: center;
+  -webkit-mask-position: center;
+  mask-composite: intersect;
+  -webkit-mask-composite: source-in;
+}
+
+@keyframes silverShine {
+  0% {
+    background-position: -140% 50%;
+  }
+
+  100% {
+    background-position: 140% 50%;
+  }
+}
+
+/* ── Nav links (desktop) ──────────────────────────────────────────── */
+.navbar-menu {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.navbar-link {
+  color: #5a5a5a;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  padding: 0.5rem 0.9rem;
+  border-radius: 5px;
+  white-space: nowrap;
+}
+
+.navbar-link:hover {
+  background: rgba(214, 218, 200, 0.5);
+  transform: translateY(-2px);
+  color: #4a4a4a;
+}
+
+.navbar-link.active {
+  background: rgba(245, 213, 200, 0.7);
+  box-shadow: 0 2px 20px rgba(245, 213, 200, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  font-weight: 600;
+  color: #4a4a4a;
+}
+
+/* ── Desktop auth slot (inside menu, right of Book Event) ────────── */
+.desktop-auth-slot {
+  display: flex;
+  align-items: center;
+  margin-left: 0.5rem;
+}
+
+/* Hidden on mobile — mobile has its own slot */
+/* (Controlled below in @media) */
+
+/* ── Mobile auth slot: always in header row at far-right ─────────── */
+.mobile-auth-slot {
+  display: none;
+  /* shown only on mobile — see @media below */
+  align-items: center;
+  margin-left: auto;
+}
+
+/* ── Mobile-only elements — hidden on desktop ────────────────────── */
+.mobile-drawer-social,
+.navbar-overlay {
+  display: none;
+}
+
+/* ── Auth control wrapper ─────────────────────────────────────────── */
+.auth-control {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* ── Login icon (logged-out state) ───────────────────────────────── */
+.login-icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: transparent;
+  transition: all 0.25s ease;
+}
+
+.login-icon-btn:hover {
+  background: rgba(0, 0, 0, 0.07);
+  transform: scale(1.1);
+}
+
+.login-icon-img {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+  display: block;
+  /* Force solid black */
+  filter: brightness(0) contrast(1);
+  transition: filter 0.2s ease, opacity 0.2s ease;
+}
+
+.login-icon-btn:hover .login-icon-img {
+  opacity: 0.7;
+}
+
+/* ── Profile avatar (logged-in state) ────────────────────────────── */
+.profile-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 2.5px solid rgba(180, 120, 80, 0.45);
+  background: linear-gradient(135deg, #e8a598, #d4825a);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  outline: none;
+  overflow: hidden;
+  transition: all 0.25s ease;
+  box-shadow: 0 2px 10px rgba(180, 120, 80, 0.25);
+}
+
+.profile-avatar:hover {
+  border-color: #c96a3e;
+  box-shadow: 0 4px 16px rgba(201, 106, 62, 0.4);
+  transform: scale(1.06);
+}
+
+.avatar-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.avatar-initials {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.5px;
+  line-height: 1;
+  pointer-events: none;
+}
+
+/* ── Avatar dropdown menu ─────────────────────────────────────────── */
+.avatar-dropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(210, 190, 170, 0.5);
+  border-radius: 14px;
+  box-shadow: 0 12px 40px rgba(100, 60, 30, 0.14), 0 2px 8px rgba(0, 0, 0, 0.07);
+  min-width: 200px;
+  padding: 0.6rem;
+  z-index: 200;
+  animation: dropIn 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes dropIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.dropdown-user-info {
+  padding: 0.5rem 0.7rem 0.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.dropdown-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #2d1e15;
+}
+
+.dropdown-username {
+  font-size: 0.78rem;
+  color: #9a7060;
+}
+
+.dropdown-divider {
+  height: 1px;
+  background: rgba(200, 170, 150, 0.3);
+  margin: 0.2rem 0;
+}
+
+.dropdown-logout {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.6rem 0.7rem;
+  border: none;
+  border-radius: 9px;
+  background: transparent;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: #c0392b;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.dropdown-logout:hover {
+  background: rgba(220, 80, 60, 0.08);
+}
+
+.dropdown-logout svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+/* ── Hamburger toggle (mobile only) ──────────────────────────────── */
+.navbar-toggle {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  gap: 5px;
+  background: none;
+  border: none;
+  padding: 4px;
+  flex-shrink: 0;
+}
+
+.navbar-toggle span {
+  width: 25px;
+  height: 3px;
+  background: #4a4a4a;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+  display: block;
+}
+
+/* Animate hamburger → × */
+.navbar-toggle.open span:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.navbar-toggle.open span:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.navbar-toggle.open span:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+/* ══════════════════════════════════════════════════════
+   Mobile  ≤ 768px
+   Layout: [☰]  [LOGO - center]  [👤 - far right]
+   ══════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .navbar-container {
+    padding: 0 1rem;
+    display: grid;
+    /* hamburger | logo (flexible) | auth icon */
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 0;
+  }
+
+  /* Hamburger — leftmost */
+  .navbar-toggle {
+    display: flex;
+    grid-column: 1;
+    margin-right: 0.25rem;
+  }
+
+  /* Logo — centred within the middle column */
+  .navbar-logo {
+    grid-column: 2;
+    justify-self: center;
+    margin-right: 0;
+  }
+
+  /* Fix logo stretching: constrain height on mobile */
+  .logo-image {
+    height: 1.8cm;
+    /* slightly smaller on mobile */
+    max-width: 90px;
+    max-height: 72px;
+    object-fit: contain;
+  }
+
+  /* Mobile auth icon — rightmost column, far right */
+  .mobile-auth-slot {
+    display: flex;
+    grid-column: 3;
+    justify-self: end;
+    margin-left: 0;
+  }
+
+  /* Hide desktop auth slot on mobile */
+  .desktop-auth-slot {
+    display: none;
+  }
+
+  /* Show mobile-only elements */
+  .navbar-overlay {
+    display: block;
+  }
+
+  .mobile-drawer-social {
+    display: flex;
+  }
+
+  /* Nav links drop-down (slides in from left, partial width only) */
+  .navbar-menu {
+    position: fixed;
+    top: var(--navbar-height, 70px);
+    left: 0;
+    width: 65%;
+    max-width: 280px;
+    height: calc(100vh - var(--navbar-height, 70px));
+    background: linear-gradient(135deg, #f5d5c8 0%, #f0e4d4 100%);
+    backdrop-filter: blur(12px);
+    flex-direction: column;
+    padding: 1rem 1.5rem 0;
+    gap: 0.15rem;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    z-index: 1001;
+    overflow-y: auto;
+    align-items: stretch;
+    justify-content: flex-start;
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.12);
+  }
+
+  .navbar-menu.active {
+    transform: translateX(0);
+  }
+
+  .navbar-link {
+    width: 100%;
+    font-size: 1rem;
+    padding: 0.65rem 1rem;
+    border-bottom: 1px solid rgba(180, 140, 110, 0.15);
+  }
+
+  /* ── Overlay backdrop (dims area outside the drawer) ─────────── */
+  .navbar-overlay {
+    position: fixed;
+    top: var(--navbar-height, 70px);
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.35);
+    z-index: 1000;
+    cursor: pointer;
+  }
+
+  /* ── Social icons pinned to bottom of the mobile drawer ──────── */
+  .mobile-drawer-social {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1.2rem 0.5rem 1.5rem;
+    margin-top: auto;
+    border-top: 1px solid rgba(180, 140, 110, 0.25);
+  }
+
+  .drawer-follow-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #9a7060;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin: 0 0 0.25rem 0.4rem;
+  }
+
+  .drawer-social-icons {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+  }
+
+  .drawer-social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.7);
+    color: #c99a7a;
+    text-decoration: none;
+    flex-shrink: 0;
+    transition: all 0.25s ease;
+    box-shadow: 0 2px 8px rgba(180, 120, 80, 0.15);
+  }
+
+  .drawer-social-link:hover {
+    background: linear-gradient(135deg, #f0c9b8, #e8d8c8);
+    color: #a87a5a;
+    transform: translateY(-2px) scale(1.08);
+    box-shadow: 0 5px 14px rgba(180, 120, 80, 0.3);
+  }
+
+  .drawer-social-link svg {
+    width: 16px;
+    height: 16px;
+  }
+}

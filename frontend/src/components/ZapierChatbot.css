@@ -1,0 +1,56 @@
+/* Floating container: Zapier embed above WhatsApp, bottom-right */
+.zapier-chatbot-fab {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+/* Wrapper for the Zapier embed (popup mode – trigger button only) */
+.zapier-chatbot-embed-wrap {
+  position: relative;
+  display: inline-block;
+  min-height: 3.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.zapier-chatbot-embed-wrap zapier-interfaces-chatbot-embed {
+  display: block;
+}
+
+/* WhatsApp icon – same style as before, below the embed */
+.zapier-chatbot-whatsapp {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  background: #25d366;
+  color: #fff;
+  border-radius: 50%;
+  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.45);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.zapier-chatbot-whatsapp--floating {
+  position: fixed;
+  right: 1.5rem;
+  /* Place WhatsApp ABOVE the chatbot button with safe spacing */
+  bottom: 6rem;
+  z-index: 1000;
+}
+
+.zapier-chatbot-whatsapp:hover {
+  transform: scale(1.08);
+  box-shadow: 0 5px 20px rgba(37, 211, 102, 0.5);
+  color: #fff;
+}
+
+.zapier-chatbot-whatsapp-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+}

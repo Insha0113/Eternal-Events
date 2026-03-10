@@ -1,0 +1,455 @@
+/* ═══════════════════════════════════════════════════════════════════
+   AddOnServices.css
+   ═══════════════════════════════════════════════════════════════════ */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;600&display=swap');
+
+.addon-services-page {
+    min-height: calc(100vh - var(--navbar-height, 70px));
+    background: #f8f6f3;
+}
+
+/* ── Hero ─────────────────────────────────────────────────────────── */
+.page-hero {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.page-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+}
+
+.page-hero-overlay {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+    color: #fff;
+}
+
+.page-hero-logo {
+    height: 120px;
+    width: auto;
+    margin-bottom: 1.5rem;
+    filter: brightness(0) invert(1);
+}
+
+.page-hero-overlay h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    margin: 0 0 1rem;
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
+}
+
+.page-hero-overlay p {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.15rem;
+    line-height: 1.7;
+    max-width: 680px;
+    margin: 0;
+    opacity: 0.92;
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* ── Content wrapper ─────────────────────────────────────────────── */
+.addon-services-content {
+    padding: 3rem 2rem 4rem;
+}
+
+.addon-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* ── Each service section ─────────────────────────────────────────── */
+.addon-service-section {
+    display: grid;
+    gap: 3rem;
+    align-items: center;
+    margin-bottom: 4rem;
+    min-height: 320px;
+    opacity: 0;
+    transition: opacity 1s ease, transform 1s ease;
+}
+
+/* Image LEFT, text RIGHT */
+.addon-service-section.from-left {
+    grid-template-columns: minmax(0, 8cm) minmax(0, 1fr);
+    transform: translateX(-80px);
+}
+
+/* Text LEFT, image RIGHT */
+.addon-service-section.from-right {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 8cm);
+    transform: translateX(80px);
+}
+
+.addon-service-section.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* For from-right: reorder columns so image appears on right */
+.addon-service-section.from-right .addon-image-wrap {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.addon-service-section.from-right .addon-section-content-left {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+/* ── Image wrapper ───────────────────────────────────────────────── */
+.addon-image-wrap {
+    position: relative;
+    width: 100%;
+    max-width: 8cm;
+    aspect-ratio: 3 / 4;
+    cursor: pointer;
+
+    box-shadow:
+        0 15px 45px rgba(245, 213, 200, 0.35),
+        0 0 25px rgba(240, 228, 212, 0.25);
+}
+
+/* Decorative frame stroke */
+.addon-image-wrap::after {
+    content: '';
+    position: absolute;
+    top: -0.7cm;
+    left: -0.7cm;
+    right: 0.3cm;
+    bottom: 0.3cm;
+    border-left: 4px solid #c99a7a;
+    border-bottom: 4px solid #c99a7a;
+    border-radius: 30px;
+    filter: blur(0.4px);
+    opacity: 0.85;
+    transform: rotate(-1deg);
+    pointer-events: none;
+    z-index: 2;
+}
+
+.addon-image-inner {
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.addon-service-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 20px;
+    filter: saturate(1.1) contrast(1.05);
+    transition: transform 0.7s ease, filter 0.7s ease;
+}
+
+.addon-image-wrap:hover .addon-service-image {
+    transform: scale(1.06);
+    filter: saturate(1.2) contrast(1.1);
+}
+
+.addon-image-wrap:hover {
+    box-shadow:
+        0 20px 55px rgba(245, 213, 200, 0.45),
+        0 0 35px rgba(240, 228, 212, 0.35);
+}
+
+/* Book Your Event hover overlay on addon images */
+.addon-book-overlay {
+    position: absolute;
+    inset: 0;
+    border-radius: 20px;
+    background: rgba(0, 0, 0, 0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: 3;
+    text-decoration: none;
+    pointer-events: none;
+}
+
+.addon-image-wrap:hover .addon-book-overlay {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.addon-book-overlay span {
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+    background: rgba(201, 154, 122, 0.5);
+    padding: 0.5rem 1.2rem;
+    border-radius: 8px;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Mobile: show overlay when image has .mobile-active class (via IntersectionObserver) */
+@media (max-width: 768px) {
+    .addon-book-overlay {
+        opacity: 0;
+        transition: opacity 0.4s ease;
+        pointer-events: auto;
+    }
+
+    .addon-image-wrap.mobile-active .addon-book-overlay {
+        opacity: 1;
+    }
+
+    .addon-image-wrap.mobile-active .addon-service-image {
+        transform: scale(1.06);
+    }
+}
+
+/* ── Text content ────────────────────────────────────────────────── */
+.addon-section-content-right,
+.addon-section-content-left {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.addon-section-title {
+    font-family: Georgia, serif;
+    color: #c99a7a;
+    font-size: clamp(1.85rem, 3.6vw, 2.6rem);
+    margin: 0 0 0.5rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-shadow: 0 2px 12px rgba(245, 213, 200, 0.3), 0 0 15px rgba(240, 228, 212, 0.25);
+}
+
+.addon-section-text {
+    color: #4a4a4a;
+    line-height: 1.75;
+    font-size: 1.05rem;
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+}
+
+/* ── Mobile helpers ──────────────────────────────────────────────── */
+.desktop-text {
+    display: block;
+}
+
+.mobile-text {
+    display: none;
+}
+
+/* ══════════════════════════════════════════════════════
+   Mobile ≤ 768px
+   ══════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+    .addon-services-content {
+        padding: 2rem 1.25rem 3rem;
+    }
+
+    .page-hero-overlay h1 {
+        font-size: 2.2rem;
+    }
+
+    .page-hero-overlay p {
+        font-size: 1rem;
+    }
+
+    .page-hero-logo {
+        height: 80px;
+    }
+
+    /* Stack all sections vertically */
+    .addon-service-section,
+    .addon-service-section.from-left,
+    .addon-service-section.from-right {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 1.5rem;
+        transform: translateY(40px);
+    }
+
+    .addon-service-section.visible {
+        transform: translateY(0);
+    }
+
+    /* Fix 2: Constrain images to same size as Our Services page images */
+    .addon-image-wrap {
+        order: 2;
+        max-width: 8cm;
+        width: 100%;
+        aspect-ratio: 3 / 4;
+        margin: 0 auto;
+        /* Reset grid column placement */
+        grid-column: unset !important;
+        grid-row: unset !important;
+    }
+
+    /* Hide the decorative frame on mobile */
+    .addon-image-wrap::after {
+        display: none;
+    }
+
+    .addon-section-content-right,
+    .addon-section-content-left {
+        order: 3;
+        width: 100%;
+        grid-column: unset !important;
+        grid-row: unset !important;
+    }
+
+    .addon-section-title {
+        order: 1;
+    }
+
+    .desktop-text {
+        display: none;
+    }
+
+    .mobile-text {
+        display: block;
+    }
+}
+
+/* ── Show More Services button ── */
+.addon-show-more-wrap {
+    text-align: center;
+    margin: 0 0 3rem;
+    padding: 2rem 0 1rem;
+}
+
+.addon-show-more-btn {
+    position: relative;
+    display: inline-block;
+    padding: 0.9rem 2.25rem;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #c99a7a;
+    background: transparent;
+    border: 2px solid #c99a7a;
+    border-radius: 8px;
+    letter-spacing: 0.03em;
+    cursor: pointer;
+    overflow: hidden;
+    z-index: 0;
+    transition: color 0.5s ease, box-shadow 0.5s ease;
+    box-shadow: 0 4px 14px rgba(201, 154, 122, 0.2);
+    font-family: inherit;
+}
+
+/* Primary water fill */
+.addon-show-more-btn::after {
+    content: '';
+    position: absolute;
+    left: -10%;
+    bottom: -10px;
+    width: 120%;
+    height: 0;
+    background: #c99a7a;
+    border-radius: 40% 60% 0 0 / 30px 40px 0 0;
+    transition: height 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    z-index: -1;
+    animation: none;
+}
+
+/* Secondary ripple wave layer */
+.addon-show-more-btn::before {
+    content: '';
+    position: absolute;
+    left: -10%;
+    bottom: -10px;
+    width: 120%;
+    height: 0;
+    background: rgba(201, 154, 122, 0.55);
+    border-radius: 60% 40% 0 0 / 40px 30px 0 0;
+    transition: height 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.06s;
+    z-index: -2;
+}
+
+.addon-show-more-btn:hover::after {
+    height: 160%;
+    animation: addonWaveRipple 1.4s ease-in-out infinite;
+}
+
+.addon-show-more-btn:hover::before {
+    height: 180%;
+    animation: addonWaveRipple2 1.6s ease-in-out infinite 0.2s;
+}
+
+@keyframes addonWaveRipple {
+
+    0%,
+    100% {
+        border-radius: 40% 60% 0 0 / 30px 40px 0 0;
+    }
+
+    50% {
+        border-radius: 60% 40% 0 0 / 40px 25px 0 0;
+    }
+}
+
+@keyframes addonWaveRipple2 {
+
+    0%,
+    100% {
+        border-radius: 60% 40% 0 0 / 40px 30px 0 0;
+    }
+
+    50% {
+        border-radius: 35% 65% 0 0 / 25px 45px 0 0;
+    }
+}
+
+.addon-show-more-btn:hover {
+    color: #fff;
+    box-shadow: 0 6px 22px rgba(201, 154, 122, 0.55);
+}
+
+/* ======= ADDON SERVICES MOBILE FONT REDUCTIONS ======= */
+@media (max-width: 768px) {
+    .addon-section-title {
+        font-size: 1.4rem !important;
+    }
+
+    .addon-section-text {
+        font-size: 0.88rem !important;
+        line-height: 1.6 !important;
+    }
+
+    .addon-show-more-btn {
+        font-size: 0.9rem;
+        padding: 0.75rem 1.8rem;
+    }
+
+    .page-hero-overlay h1 {
+        font-size: 1.8rem !important;
+    }
+
+    .page-hero-overlay p {
+        font-size: 0.9rem !important;
+    }
+}

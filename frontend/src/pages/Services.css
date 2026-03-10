@@ -1,0 +1,1249 @@
+.services-page {
+  min-height: calc(100vh - var(--navbar-height, 70px));
+  background: #f8f6f3;
+}
+
+/* ===== HERO (MATCHES HOME EXACTLY) ===== */
+/* .services-hero {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+.services-hero-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  animation: zoomIn 12s ease-in-out infinite;
+}
+
+.services-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+}
+
+.services-hero-content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;   /* PERFECT CENTER */
+/* align-items: center;       /* PERFECT CENTER */
+/* text-align: center;
+  color: white;
+  padding: 2rem;
+} */
+
+/* .services-hero-logo {
+  height: 120px;   
+  margin-bottom: 20px;
+  filter: brightness(0) invert(1);
+}  */
+/* ===== GENERIC SERVICE SECTION LAYOUT ===== */
+.service-section {
+  display: grid;
+  grid-template-columns: minmax(0, 8cm) minmax(0, 1fr);
+  gap: 3rem;
+  align-items: center;
+  margin-bottom: 4rem;
+  min-height: 320px;
+}
+
+/* Last section on the page – no bottom gap before footer */
+.add-on-section {
+  margin-bottom: 0 !important;
+}
+
+/* Add spacing between hero and first service section */
+.wedding-section {
+  margin-top: 1.5cm;
+  /* adjust 1cm–2cm as needed */
+}
+
+/* image left, text right */
+.service-section.from-left {
+  grid-template-columns: minmax(0, 8cm) minmax(0, 1fr);
+}
+
+/* text left, image right */
+.service-section.from-right {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 8cm);
+}
+
+/* Add‑on services section: stacked vertically: title → marquee → subtitle → button */
+.add-on-section {
+  display: flex !important;
+  flex-direction: column !important;
+  grid-template-columns: none !important;
+  gap: 1.5rem;
+  align-items: center;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 1s ease-out, transform 0.9s ease-out;
+  padding-bottom: 3rem;
+  /* space above footer */
+  margin-bottom: 0 !important;
+}
+
+.add-on-section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.add-on-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.add-on-title {
+  font-size: clamp(1.85rem, 3.6vw, 2.6rem);
+  font-family: Georgia, serif;
+  font-weight: 600;
+  color: #c99a7a;
+  letter-spacing: 0.03em;
+  text-shadow: 0 2px 12px rgba(245, 213, 200, 0.3), 0 0 15px rgba(240, 228, 212, 0.25);
+}
+
+.add-on-subtitle {
+  font-size: 1.02rem;
+  color: #4a4a4a;
+  line-height: 1.7;
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* ── Add-on Marquee (horizontal infinite scroll) ── */
+@keyframes addonMarqueeScroll {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.addon-marquee-viewport {
+  width: 100%;
+  overflow: hidden;
+}
+
+.addon-marquee-track {
+  display: flex;
+  flex-direction: row;
+  gap: 1.2rem;
+  width: max-content;
+  animation: addonMarqueeScroll 22s linear infinite;
+}
+
+.addon-marquee-viewport:hover .addon-marquee-track {
+  animation-play-state: paused;
+}
+
+.addon-marquee-card {
+  flex: 0 0 auto;
+}
+
+.addon-marquee-image-wrap {
+  position: relative;
+  width: 220px;
+  height: 280px;
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow:
+    0 12px 35px rgba(245, 213, 200, 0.4),
+    0 0 20px rgba(240, 228, 212, 0.3);
+}
+
+.addon-marquee-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.addon-marquee-card:hover .addon-marquee-image {
+  transform: scale(1.06);
+}
+
+/* Book Your Event hover overlay on marquee cards */
+.addon-marquee-book-overlay {
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 3;
+  text-decoration: none;
+  pointer-events: none;
+}
+
+.addon-marquee-image-wrap:hover .addon-marquee-book-overlay {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.addon-marquee-book-overlay span {
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+  background: rgba(201, 154, 122, 0.5);
+  padding: 0.4rem 0.9rem;
+  border-radius: 8px;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Carousel: 5 visible at a time, gap < 1cm, center (3rd) bigger */
+.add-on-carousel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5cm;
+  width: 100%;
+  min-height: 14cm;
+  flex-wrap: nowrap;
+}
+
+.add-on-slide {
+  flex: 0 0 auto;
+  transition:
+    transform 2.8s cubic-bezier(0.25, 0.1, 0.25, 1),
+    opacity 2.8s ease-in-out;
+}
+
+
+.add-on-slide--pos-0,
+.add-on-slide--pos-1,
+.add-on-slide--pos-3,
+.add-on-slide--pos-4 {
+  opacity: 0.9;
+}
+
+.add-on-slide--center {
+  opacity: 1;
+  z-index: 2;
+}
+
+.add-on-image-wrap {
+  position: relative;
+  width: 100%;
+  height: 12cm;
+  min-height: 160px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow:
+    0 18px 45px rgba(245, 213, 200, 0.45),
+    0 0 30px rgba(240, 228, 212, 0.35);
+
+  transition:
+    width 2.8s cubic-bezier(0.25, 0.1, 0.25, 1),
+    height 2.8s cubic-bezier(0.25, 0.1, 0.25, 1),
+    transform 2.8s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+
+.add-on-slide--pos-0 .add-on-image-wrap,
+.add-on-slide--pos-1 .add-on-image-wrap,
+.add-on-slide--pos-3 .add-on-image-wrap,
+.add-on-slide--pos-4 .add-on-image-wrap {
+  width: 5.2cm;
+  height: 10.5cm;
+}
+
+
+/* Center: bigger */
+.add-on-slide--center .add-on-image-wrap {
+  width: 8.5cm;
+  height: 16cm;
+  min-height: 200px;
+}
+
+.add-on-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.add-on-label {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 40%;
+  padding: 0.8rem 1rem;
+
+  background: linear-gradient(to top,
+      rgba(255, 255, 255, 0.7),
+      rgba(255, 255, 255, 0.35) 1cm,
+      rgba(255, 255, 255, 0.15) 2cm,
+      rgba(255, 255, 255, 0) 2.2cm);
+
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+
+  display: flex;
+  align-items: flex-end;
+}
+
+
+.add-on-label span {
+  font-size: 1.4rem;
+  /* BIGGER */
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  font-family: "Playfair Display", "Georgia", serif;
+  /* elegant */
+  color: #ffffff;
+
+  text-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.5),
+    0 4px 18px rgba(0, 0, 0, 0.4);
+}
+
+.add-on-slide--center .add-on-label span {
+  font-size: 1.8rem;
+}
+
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.service-card {
+  background: #ffffff;
+  box-shadow: 0 6px 25px rgba(245, 213, 200, 0.25), 0 0 20px rgba(240, 228, 212, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(232, 184, 168, 0.2);
+  box-shadow: 0 6px 25px rgba(245, 213, 200, 0.25), 0 0 20px rgba(240, 228, 212, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(232, 184, 168, 0.2);
+  padding: 2.5rem;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  border-top: 4px solid rgba(232, 184, 168, 0.6);
+  box-shadow: 0 -3px 18px rgba(245, 213, 200, 0.3), 0 0 12px rgba(240, 228, 212, 0.25);
+}
+
+.service-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+.service-icon {
+  font-size: 4rem;
+  margin-bottom: 1.5rem;
+}
+
+.service-card h3 {
+  color: #c99a7a;
+  text-shadow: 0 2px 12px rgba(245, 213, 200, 0.3), 0 0 15px rgba(240, 228, 212, 0.25);
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.service-card p {
+  color: #666;
+  line-height: 1.6;
+  font-size: 1rem;
+}
+
+.service-image-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 8cm;
+  aspect-ratio: 3 / 4;
+  cursor: pointer;
+
+  box-shadow:
+    0 15px 45px rgba(245, 213, 200, 0.35),
+    0 0 25px rgba(240, 228, 212, 0.25);
+
+  transition:
+    opacity 2.8s ease-out,
+    transform 2.8s ease-out,
+    box-shadow 0.6s ease;
+}
+
+/* inner wrapper to clip image */
+.service-image-inner {
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+/* actual image */
+.service-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 20px;
+  transition: transform 0.5s ease;
+}
+
+/* Book Your Event hover overlay */
+.service-image-hover-overlay {
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 3;
+  text-decoration: none;
+  pointer-events: none;
+}
+
+.service-image-wrap:hover .service-image-hover-overlay {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.service-image-wrap:hover .service-image {
+  transform: scale(1.06);
+}
+
+.service-image-hover-overlay span {
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+  background: rgba(201, 154, 122, 0.5);
+  padding: 0.5rem 1.2rem;
+  border-radius: 8px;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Mobile: show overlay when image has .mobile-active class */
+@media (max-width: 768px) {
+  .service-image-hover-overlay {
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: auto;
+  }
+
+  .service-image-wrap.mobile-active .service-image-hover-overlay {
+    opacity: 1;
+  }
+
+  .service-image-wrap.mobile-active .service-image {
+    transform: scale(1.06);
+  }
+}
+
+/* marker stroke */
+.service-image-wrap::after {
+  content: "";
+  position: absolute;
+  top: -0.7cm;
+  left: -0.7cm;
+  right: 0.3cm;
+  bottom: 0.3cm;
+
+  border-left: 4px solid #c99a7a;
+  border-bottom: 4px solid #c99a7a;
+
+  border-radius: 30px;
+  filter: blur(0.4px);
+  opacity: 0.85;
+  transform: rotate(-1deg);
+  pointer-events: none;
+  z-index: 2;
+}
+
+
+
+/* .wedding-section-visible .wedding-section-image-wrap {
+  opacity: 1;
+  transform: translateX(0);
+} */
+
+.wedding-section-image-wrap:hover {
+  transform: scale(1.03);
+}
+
+.wedding-section-image-wrap:focus {
+  outline: 2px solid rgba(232, 184, 168, 0.6);
+  outline-offset: 4px;
+}
+
+.wedding-section-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+
+  filter: saturate(1.1) contrast(1.05);
+  transition: transform 0.7s ease, filter 0.7s ease;
+}
+
+
+.wedding-section-image-wrap:hover {
+  transform: scale(1.04);
+  box-shadow:
+    0 20px 55px rgba(245, 213, 200, 0.45),
+    0 0 35px rgba(240, 228, 212, 0.35);
+}
+
+.wedding-section-image-wrap:hover .wedding-section-image {
+  transform: scale(1.1);
+  filter: saturate(1.2) contrast(1.1);
+}
+
+
+.wedding-section-content {
+  opacity: 0;
+  transform: translateX(60px);
+  transition: opacity 1.2s ease-out 0.2s, transform 1s ease-out 0.2s;
+}
+
+/* .wedding-section-visible .wedding-section-content {
+  opacity: 1;
+  transform: translateX(0);
+} */
+
+.wedding-section-title {
+  color: #c99a7a;
+  font-size: clamp(1.85rem, 3.6vw, 2.6rem);
+  font-family: Georgia, serif;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  margin-bottom: 1rem;
+  text-shadow: 0 2px 12px rgba(245, 213, 200, 0.3), 0 0 15px rgba(240, 228, 212, 0.25);
+}
+
+.wedding-section-text {
+  color: #4a4a4a;
+  line-height: 1.7;
+  font-size: 1.05rem;
+}
+
+.wedding-read-more {
+  background: none;
+  border: none;
+  color: #c99a7a;
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0;
+  font-size: inherit;
+}
+
+.wedding-read-more:hover {
+  color: #a67c5e;
+}
+
+/* ---------- Wedding modal (sub-services) ---------- */
+.wedding-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  overflow-y: auto;
+  animation: servicesFadeIn 0.25s ease;
+}
+
+.add-on-slide .add-on-label {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.add-on-slide--center .add-on-label {
+  opacity: 1;
+}
+
+
+@keyframes servicesFadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.wedding-modal {
+  background: #fff;
+  border-radius: 16px;
+  max-width: 900px;
+  width: 100%;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25), 0 0 30px rgba(245, 213, 200, 0.2);
+  border: 1px solid rgba(232, 184, 168, 0.3);
+  animation: servicesSlideUp 0.3s ease;
+}
+
+@keyframes servicesSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.wedding-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1.5rem;
+  background: linear-gradient(135deg, #f5d5c8 0%, #f0e4d4 100%);
+  border-bottom: 1px solid rgba(232, 184, 168, 0.3);
+  border-radius: 16px 16px 0 0;
+}
+
+.wedding-modal-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #4a4a4a;
+}
+
+.wedding-modal-close {
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: #4a4a4a;
+  background: transparent;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.wedding-modal-close:hover {
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.wedding-modal-body {
+  padding: 1.5rem;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.wedding-sub-services {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.5rem;
+}
+
+.wedding-sub-service {
+  background: #fdfbf9;
+  border: 1px solid rgba(232, 184, 168, 0.25);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(245, 213, 200, 0.2);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.wedding-sub-service:hover {
+  box-shadow: 0 8px 25px rgba(245, 213, 200, 0.3);
+  transform: translateY(-4px);
+}
+
+.wedding-sub-service-image-wrap {
+  width: 100%;
+  aspect-ratio: 4/3;
+  overflow: hidden;
+  background: #f0e4d4;
+}
+
+.wedding-sub-service-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.wedding-sub-service:hover .wedding-sub-service-image {
+  transform: scale(1.06);
+}
+
+.wedding-sub-service h3 {
+  margin: 0.75rem 1rem 0.5rem;
+  font-size: 1.1rem;
+  color: #c99a7a;
+}
+
+.wedding-sub-service p {
+  margin: 0 1rem 1rem;
+  font-size: 0.9rem;
+  color: #555;
+  line-height: 1.5;
+}
+
+
+/* .baptism-section-image-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 8cm;
+  aspect-ratio: 3 / 4;
+  border-radius: 20px;
+  overflow: hidden;
+  cursor: pointer;
+
+  box-shadow: 
+    0 15px 45px rgba(245, 213, 200, 0.35),
+    0 0 25px rgba(240, 228, 212, 0.25);
+
+  opacity: 0;
+  transform: translateX(80px);
+  transition: 
+    opacity 2.8s ease-out,
+    transform 2.8s ease-out,
+    box-shadow 0.6s ease;
+} */
+
+/* .baptism-section-visible .baptism-section-image-wrap {
+  opacity: 1;
+  transform: translateX(0);
+} */
+
+.baptism-section-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: saturate(1.1) contrast(1.05);
+  transition: transform 0.7s ease, filter 0.7s ease;
+}
+
+.baptism-section-image-wrap:hover .baptism-section-image {
+  transform: scale(1.1);
+  filter: saturate(1.2) contrast(1.1);
+}
+
+.baptism-section-content {
+  opacity: 0;
+  transform: translateX(-60px);
+  transition: opacity 1.2s ease-out 0.2s, transform 1s ease-out 0.2s;
+}
+
+/* .baptism-section-visible .baptism-section-content {
+  opacity: 1;
+  transform: translateX(0);
+} */
+
+.baptism-section-title {
+  color: #c99a7a;
+  font-size: clamp(1.85rem, 3.6vw, 2.6rem);
+  font-family: Georgia, serif;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  margin-bottom: 1rem;
+  text-shadow: 0 2px 12px rgba(245, 213, 200, 0.3), 0 0 15px rgba(240, 228, 212, 0.25);
+}
+
+.baptism-section-text {
+  color: #4a4a4a;
+  line-height: 1.7;
+  font-size: 1.05rem;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .baptism-section {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .baptism-section-image-wrap {
+    margin: 0 auto;
+  }
+
+  .baptism-section-content {
+    text-align: center;
+  }
+
+  /* .services-hero {
+    min-height: 100vh;
+  }
+
+  .services-hero-logo {
+    height: 90px;
+  }
+
+  .services-hero-content h1 {
+    font-size: 2.5rem;
+  }
+  .services-hero-overlay p {
+    font-size: 1.1rem;
+  } */
+
+}
+
+
+@media (max-width: 768px) {
+  /* .services-hero h1 {
+    font-size: 2rem;
+  } */
+
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Stack ALL custom service sections and hard‑center them on mobile */
+  .service-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  /* Mobile heading: show section name first, above image and text */
+  .service-section::before {
+    content: attr(data-title);
+    display: block;
+    margin-bottom: 1rem;
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: #c99a7a;
+    text-shadow: 0 2px 12px rgba(245, 213, 200, 0.3), 0 0 15px rgba(240, 228, 212, 0.25);
+  }
+
+  .service-section .service-image-wrap {
+    margin: 0 auto 1.5rem;
+  }
+
+  /* On mobile the decorative frame was making images look off‑center.
+     Hide it so the image itself is perfectly centered. */
+  .service-section .service-image-wrap::after {
+    display: none;
+  }
+
+  /* For right-aligned sections, show image before text on mobile:
+     order becomes: heading (::before), image, then text. */
+  .service-section.from-right .service-image-wrap {
+    order: 1;
+  }
+
+  .service-section.from-right .baptism-section-content,
+  .service-section.from-right .wedding-section-content {
+    order: 2;
+  }
+
+  /* Hide original H2 titles on mobile since we use ::before instead */
+  .wedding-section-title,
+  .baptism-section-title {
+    display: none;
+  }
+
+  .wedding-section {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  /* .wedding-section-image-wrap {
+    max-width: 8cm;
+    width: 100%;
+    margin: 0 auto;
+    aspect-ratio: 3 / 4;
+  } */
+
+  .wedding-sub-services {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* ===== FIX VISIBILITY USING NEW SCROLL SYSTEM ===== */
+
+.service-section.visible .wedding-section-content,
+.service-section.visible .baptism-section-content {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* image animation */
+.service-section.visible .service-image-wrap {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* initial hidden state */
+.service-image-wrap {
+  opacity: 0;
+}
+
+.service-section.from-left .service-image-wrap {
+  transform: translateX(-80px);
+}
+
+.service-section.from-right .service-image-wrap {
+  transform: translateX(80px);
+}
+
+/* ===== MOBILE: CENTER IMAGE + ORDER FIX (REAL CLASSES) ===== */
+@media (max-width: 768px) {
+
+  .service-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1.5rem;
+  }
+
+  /* TITLE FIRST */
+  .wedding-section-title,
+  .baptism-section-title {
+    order: 1;
+    width: 100%;
+  }
+
+  /* IMAGE SECOND */
+  .service-image-wrap {
+    order: 2;
+    width: auto;
+    max-width: 90%;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+  }
+
+  /* TEXT LAST */
+  .wedding-section-text,
+  .baptism-section-text,
+  .mobile-text {
+    order: 3;
+    width: 100%;
+  }
+
+  /* IMAGE CENTER FIX */
+  .service-image-inner {
+    margin: 0 auto;
+  }
+
+  .service-image {
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+    /* fill the centered wrapper */
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+
+/* ===== FINAL MOBILE OVERRIDE: Title → Image → Text, centered & smaller ===== */
+@media (max-width: 768px) {
+
+  /* Make each section a vertical flex stack */
+  .service-section {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    gap: 1.25rem;
+  }
+
+  /* 1) TITLE FIRST – use the section title from data-title */
+  .service-section::before {
+    content: attr(data-title) !important;
+    order: 0;
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: clamp(1.85rem, 3.6vw, 2.6rem);
+    font-weight: 600;
+    font-family: Georgia, serif;
+    color: #c99a7a;
+    letter-spacing: 0.03em;
+    text-shadow: 0 2px 12px rgba(245, 213, 200, 0.3), 0 0 15px rgba(240, 228, 212, 0.25);
+  }
+
+  /* Hide inner H2s so we don't show the title twice */
+  .wedding-section-title,
+  .baptism-section-title {
+    display: none !important;
+  }
+
+  /* 2) IMAGE SECOND – small card, truly centered */
+  .service-image-wrap {
+    order: 1;
+    max-width: 260px !important;
+    /* smaller than desktop */
+    width: 80% !important;
+    /* at most 80% of screen */
+    margin: 0 auto 1.5rem !important;
+    transform: none !important;
+    /* cancel slide offset */
+    opacity: 1 !important;
+    aspect-ratio: auto !important;
+    /* let height follow image; avoid weird crops */
+    border-radius: 20px !important;
+    overflow: hidden !important;
+  }
+
+  .service-image-inner {
+    width: 100% !important;
+    margin: 0 auto !important;
+  }
+
+  .service-image {
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;
+    margin: 0 auto !important;
+  }
+
+  /* 3) TEXT LAST – all text containers under the image */
+  .wedding-section-content,
+  .baptism-section-content {
+    order: 2;
+    width: 100%;
+  }
+
+  /* Add On Services – the ::before pseudo creates a duplicate title,
+     so suppress it for add-on-section; the real h2 remains visible */
+  .add-on-section::before {
+    content: none !important;
+    display: none !important;
+  }
+
+  .add-on-section {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 2rem !important;
+    opacity: 1 !important;
+    transform: none !important;
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  .add-on-content {
+    width: 100%;
+    text-align: center;
+  }
+
+  .add-on-title {
+    font-size: 1.7rem !important;
+  }
+
+  .add-on-carousel {
+    gap: 0.35cm;
+    min-height: 11cm;
+  }
+
+  .add-on-slide--pos-0 .add-on-image-wrap,
+  .add-on-slide--pos-1 .add-on-image-wrap,
+  .add-on-slide--pos-3 .add-on-image-wrap,
+  .add-on-slide--pos-4 .add-on-image-wrap {
+    width: 3.2cm;
+    height: 8cm;
+    min-height: 100px;
+  }
+
+  .add-on-slide--center .add-on-image-wrap {
+    width: 5cm;
+    height: 11cm;
+    min-height: 140px;
+  }
+
+  @media (max-width: 480px) {
+    .add-on-carousel {
+      gap: 0.25cm;
+    }
+
+    .add-on-slide--pos-0 .add-on-image-wrap,
+    .add-on-slide--pos-1 .add-on-image-wrap,
+    .add-on-slide--pos-3 .add-on-image-wrap,
+    .add-on-slide--pos-4 .add-on-image-wrap {
+      width: 2.6cm;
+      height: 6.5cm;
+    }
+
+    .add-on-slide--center .add-on-image-wrap {
+      width: 4cm;
+      height: 9cm;
+    }
+  }
+
+}
+
+/* ── Show More Services button ── */
+.services-show-more-wrap {
+  text-align: center;
+  margin: 0 0 3rem;
+  padding: 2rem 0 1rem;
+}
+
+/* Add On Services CTA wrap — centered */
+.add-on-cta-wrap {
+  margin-top: 0.5rem;
+  margin-bottom: 3.5rem;
+  padding-bottom: 1.5rem;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .add-on-cta-wrap {
+    margin-bottom: 4rem;
+    padding-bottom: 2rem;
+  }
+}
+
+.services-show-more-btn {
+  position: relative;
+  display: inline-block;
+  padding: 0.9rem 2.25rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #c99a7a;
+  background: transparent;
+  border: 2px solid #c99a7a;
+  border-radius: 8px;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  overflow: hidden;
+  z-index: 0;
+  transition: color 0.5s ease, box-shadow 0.5s ease;
+  box-shadow: 0 4px 14px rgba(201, 154, 122, 0.2);
+  font-family: inherit;
+  text-decoration: none;
+}
+
+/* Primary water fill */
+.services-show-more-btn::after {
+  content: '';
+  position: absolute;
+  left: -10%;
+  bottom: -10px;
+  width: 120%;
+  height: 0;
+  background: #c99a7a;
+  border-radius: 40% 60% 0 0 / 30px 40px 0 0;
+  transition: height 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  z-index: -1;
+  animation: none;
+}
+
+/* Secondary ripple wave layer */
+.services-show-more-btn::before {
+  content: '';
+  position: absolute;
+  left: -10%;
+  bottom: -10px;
+  width: 120%;
+  height: 0;
+  background: rgba(201, 154, 122, 0.55);
+  border-radius: 60% 40% 0 0 / 40px 30px 0 0;
+  transition: height 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.06s;
+  z-index: -2;
+}
+
+.services-show-more-btn:hover::after {
+  height: 160%;
+  animation: srvWaveRipple 1.4s ease-in-out infinite;
+}
+
+.services-show-more-btn:hover::before {
+  height: 180%;
+  animation: srvWaveRipple2 1.6s ease-in-out infinite 0.2s;
+}
+
+@keyframes srvWaveRipple {
+
+  0%,
+  100% {
+    border-radius: 40% 60% 0 0 / 30px 40px 0 0;
+  }
+
+  50% {
+    border-radius: 60% 40% 0 0 / 40px 25px 0 0;
+  }
+}
+
+@keyframes srvWaveRipple2 {
+
+  0%,
+  100% {
+    border-radius: 60% 40% 0 0 / 40px 30px 0 0;
+  }
+
+  50% {
+    border-radius: 35% 65% 0 0 / 25px 45px 0 0;
+  }
+}
+
+.services-show-more-btn:hover {
+  color: #fff;
+  box-shadow: 0 6px 22px rgba(201, 154, 122, 0.55);
+}
+
+/* ================= SERVICES MOBILE FONT REDUCTIONS ================= */
+@media (max-width: 768px) {
+
+  /* Section titles via ::before pseudo-element — use smaller font */
+  .service-section::before {
+    font-size: 1.4rem !important;
+  }
+
+  /* Service text paragraphs */
+  .wedding-section-text,
+  .baptism-section-text {
+    font-size: 0.88rem !important;
+    line-height: 1.6 !important;
+  }
+
+  /* Add On section title */
+  .add-on-title {
+    font-size: 1.4rem !important;
+  }
+
+  .add-on-subtitle {
+    font-size: 0.88rem !important;
+  }
+
+  /* Show more button text */
+  .services-show-more-btn {
+    font-size: 0.9rem;
+    padding: 0.75rem 1.8rem;
+  }
+}
