@@ -83,7 +83,7 @@ const About = () => {
             <div className="about-founders-text">
               <h2>How It All Began</h2>
               <p>
-                Eternal Vows Events started in 2020 when three friends—<strong>Arun</strong>, <strong>Akhil</strong>, and <strong>Antony</strong>—decided to turn their shared passion for celebrations into something lasting. What began as a small venture with a handful of events soon grew into a trusted name across weddings, corporate events, and special occasions.
+                Eternal Vows Events started in 2020 when three friends—<strong>Aashiq</strong>, <strong>Antony</strong>, and <strong>Ashkar</strong>—decided to turn their shared passion for celebrations into something lasting. What began as a small venture with a handful of events soon grew into a trusted name across weddings, corporate events, and special occasions.
               </p>
               <p>
                 Through dedication, creativity, and an unwavering focus on quality, the team has built lasting relationships with clients and vendors alike. From 2020 to 2026, Eternal Vows Events has created countless memorable experiences, earning a reputation for elegance, reliability, and attention to detail. Today we continue to evolve, bringing the same friendship and commitment to every event we plan.
