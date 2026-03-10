@@ -54,7 +54,7 @@ const ReadMoreText = ({ text, maxLength = 180 }) => {
 };
 
 
-const Logo3DInner = React.forwardRef((props, ref) => {
+const Logo3DInner = React.forwardRef(({ shadowRef }, ref) => {
   const groupRef = useRef();
   const { scene } = useGLTF(logoGLB);
 
@@ -68,7 +68,7 @@ const Logo3DInner = React.forwardRef((props, ref) => {
     console.log('Model maxDim after centering:', maxDim);
 
     const desiredSize = 1.0;
-    scene.scale.multiplyScalar(desiredSize / maxDim * 400); // MAXIMUM size
+    scene.scale.multiplyScalar(desiredSize / maxDim * 500); // MAXIMUM size
 
     scene.traverse((obj) => {
       if (obj.isMesh) {
@@ -88,6 +88,17 @@ const Logo3DInner = React.forwardRef((props, ref) => {
   useFrame((state, delta) => {
     if (!groupRef.current) return;
     groupRef.current.rotation.y += delta * 0.8;
+
+    // ── Sync shadow width/opacity directly with rotation ──
+    if (shadowRef && shadowRef.current) {
+      const cosY = Math.abs(Math.cos(groupRef.current.rotation.y));
+      const minW = 70, maxW = 240;
+      const w = minW + (maxW - minW) * cosY;
+      const minOp = 0.28, maxOp = 0.88;
+      const op = minOp + (maxOp - minOp) * cosY;
+      shadowRef.current.style.width = `${w}px`;
+      shadowRef.current.style.opacity = op;
+    }
   });
 
   React.useImperativeHandle(ref, () => groupRef.current);
@@ -116,7 +127,7 @@ const MOMENTS_IMAGES = [
 ];
 
 /* ---------------- SCENE ---------------- */
-const Scene3D = React.forwardRef((props, ref) => {
+const Scene3D = React.forwardRef(({ shadowRef }, ref) => {
   return (
     <>
       {/* Warm ambient – rose-gold base warmth */}
@@ -131,7 +142,7 @@ const Scene3D = React.forwardRef((props, ref) => {
       <spotLight position={[1, 10, 5]} intensity={9.0} color="#ff9060" angle={0.35} penumbra={0.5} />
 
       <Suspense fallback={null}>
-        <Logo3DInner ref={ref} />
+        <Logo3DInner ref={ref} shadowRef={shadowRef} />
       </Suspense>
     </>
   );
@@ -142,6 +153,7 @@ const Scene3D = React.forwardRef((props, ref) => {
 /* ---------------- HOME ---------------- */
 const Home = () => {
   const sceneRef = useRef();
+  const shadowRef = useRef(null);
   // currentImageIndex is always 0 (carousel auto-advance removed; value never changed)
   const currentImageIndex = 0;
 
@@ -231,10 +243,10 @@ const Home = () => {
                     far: 10500
                   }}
                 >
-                  <Scene3D ref={sceneRef} />
+                  <Scene3D ref={sceneRef} shadowRef={shadowRef} />
                 </Canvas>
                 {/* Dynamic shadow that moves as the logo rotates */}
-                <div className="logo-3d-shadow" aria-hidden="true" />
+                <div ref={shadowRef} className="logo-3d-shadow" aria-hidden="true" />
               </div>
 
               {/* About Us button directly under the 3D logo */}

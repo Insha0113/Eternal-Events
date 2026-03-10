@@ -171,7 +171,7 @@
 
 /* About Us button container — centers directly under the 3D logo canvas */
 .about-us-btn-wrap {
-  margin-top: 0.5rem;
+  margin-top: 3.0rem;
   padding-top: 0;
   display: flex;
   justify-content: center;
@@ -244,25 +244,25 @@
   position: relative !important;
 }
 
-/* ── Dynamic 3D logo shadow ── */
+/* ── Dynamic 3D logo shadow (width/opacity driven by JS via useFrame) ── */
 .logo-3d-shadow {
   position: absolute;
-  bottom: 6px;
-  /* sits just below the canvas area */
+  bottom: -30px;
+  /* clearly below the model */
   left: 50%;
   transform: translateX(-50%);
   width: 240px;
-  height: 30px;
+  /* JS overrides this each frame */
+  height: 28px;
   border-radius: 50%;
   background: radial-gradient(ellipse at center,
       rgba(100, 45, 10, 0.62) 0%,
       rgba(80, 30, 5, 0.35) 45%,
       transparent 78%);
-  /* animation: stretch in sync with logo rotation (0.8 rad/s → ~7.85s/turn) */
-  animation: shadowRock 7.85s linear infinite;
   pointer-events: none;
   z-index: 1;
   filter: blur(4px);
+  /* No CSS animation — controlled live by useFrame */
 }
 
 @keyframes shadowRock {
@@ -475,11 +475,11 @@
     padding-bottom: 0 !important;
   }
 
-  /* Smaller shadow on mobile */
+  /* Smaller shadow on mobile — JS still drives width/opacity */
   .logo-3d-shadow {
     width: 155px;
-    height: 20px;
-    bottom: 4px;
+    height: 18px;
+    bottom: -20px;
     filter: blur(3px);
   }
 
@@ -513,7 +513,7 @@
   /* About Us button — single line, centered, below logo */
   .about-us-btn-wrap {
     justify-content: center;
-    margin-top: 0.5rem;
+    margin-top: 1.8rem;
     width: 100%;
     margin-left: 0 !important;
   }
