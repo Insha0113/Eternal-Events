@@ -19,8 +19,7 @@ const BackgroundMusic = () => {
     useEffect(() => {
         const audio = new Audio(PLAYLIST[0]);
         audio.volume = 0.35;
-        // Start muted — browsers ALWAYS allow muted autoplay
-        audio.muted = true;
+        audio.muted = true;           // Start muted — browsers ALWAYS allow muted autoplay
         audioRef.current = audio;
 
         const tryPlay = (startIdx) => {
@@ -44,12 +43,12 @@ const BackgroundMusic = () => {
         };
         audio.addEventListener('ended', onEnded);
 
-        // Play muted first (always succeeds), then unmute after a tiny delay
+        // Play muted first (always succeeds on desktop), then unmute after a tiny delay
         audio.play()
             .then(() => {
                 setPlaying(true);
                 setBlocked(false);
-                // Auto-unmute after 300 ms — invisible to the user, sounds like autoplay
+                // Auto-unmute after 300 ms — invisible to user, sounds like autoplay
                 setTimeout(() => {
                     if (audioRef.current) {
                         audioRef.current.muted = false;
@@ -58,7 +57,7 @@ const BackgroundMusic = () => {
                 }, 300);
             })
             .catch(() => {
-                // Extremely rare — even muted play blocked; fall back to click-to-play
+                // Mobile browsers may block even muted autoplay; fall back to click-to-play
                 setBlocked(true);
             });
 
@@ -69,20 +68,28 @@ const BackgroundMusic = () => {
         };
     }, []);
 
-    // ── If even muted autoplay was blocked, start on first user interaction ─
+    // ── On mobile, start on first user interaction (touch, click, scroll) ───
     useEffect(() => {
         if (!blocked) return;
+
         const start = () => {
             const audio = audioRef.current;
             if (!audio) return;
             audio.muted = false;
+            audio.volume = 0.35;
             audio.play()
-                .then(() => { setPlaying(true); setBlocked(false); setIsMuted(false); })
+                .then(() => {
+                    setPlaying(true);
+                    setBlocked(false);
+                    setIsMuted(false);
+                })
                 .catch(() => { });
         };
-        const EVENTS = ['click', 'keydown', 'touchstart', 'scroll'];
-        EVENTS.forEach(ev => window.addEventListener(ev, start, { once: true }));
-        return () => EVENTS.forEach(ev => window.removeEventListener(ev, start));
+
+        // Broad set of events to ensure mobile (especially iOS) triggers
+        const EVENTS = ['click', 'touchstart', 'touchend', 'keydown', 'scroll', 'pointerdown'];
+        EVENTS.forEach(ev => document.addEventListener(ev, start, { once: true, passive: true }));
+        return () => EVENTS.forEach(ev => document.removeEventListener(ev, start));
     }, [blocked]);
 
     // ── Mute / unmute toggle ─────────────────────────────────────────────────
@@ -92,7 +99,9 @@ const BackgroundMusic = () => {
         if (!audio) return;
 
         if (blocked) {
+            // Manual play attempt on mobile
             audio.muted = false;
+            audio.volume = 0.35;
             audio.play()
                 .then(() => { setPlaying(true); setBlocked(false); setIsMuted(false); })
                 .catch(() => { });
@@ -113,7 +122,7 @@ const BackgroundMusic = () => {
                 className={`music-toggle-btn${showPlay ? ' music-needs-play' : ''}`}
                 onClick={handleClick}
                 aria-label={showPlay ? 'Play music' : isMuted ? 'Unmute music' : 'Mute music'}
-                title={showPlay ? 'Click to play music' : isMuted ? 'Unmute' : 'Mute'}
+                title={showPlay ? 'Tap to play music' : isMuted ? 'Unmute' : 'Mute'}
             >
                 <span className="music-icon">
                     {showPlay ? '🎵' : isMuted ? '🔇' : '🎶'}

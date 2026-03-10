@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import axios from 'axios';
 import './AdminLogin.css';
+import API_BASE_URL from '../api';
 
 const AdminResetPassword = () => {
     const [searchParams] = useSearchParams();
@@ -33,7 +34,7 @@ const AdminResetPassword = () => {
         }
         setLoading(true);
         try {
-            const res = await axios.post('http://localhost:5000/api/admin/reset-password', {
+            const res = await axios.post(`${API_BASE_URL}/api/admin/reset-password`, {
                 token,
                 newPassword
             });

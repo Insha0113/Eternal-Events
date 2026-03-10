@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './BookHost.css';
+import API_BASE_URL from '../api';
 
 const BookHost = () => {
   const [formData, setFormData] = useState({
@@ -28,7 +29,7 @@ const BookHost = () => {
     setError('');
 
     try {
-      const response = await axios.post('http://localhost:5000/api/bookings/host', formData);
+      const response = await axios.post(`${API_BASE_URL}/api/bookings/host`, formData);
       setSubmitted(true);
       setFormData({
         name: '',

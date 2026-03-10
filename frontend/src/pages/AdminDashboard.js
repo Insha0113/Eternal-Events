@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './AdminDashboard.css';
+import API_BASE_URL from '../api';
 
 const AdminDashboard = () => {
   const [bookings, setBookings] = useState([]);
@@ -26,8 +27,8 @@ const AdminDashboard = () => {
       const token = getToken();
       const headers = { Authorization: `Bearer ${token}` };
       const [bookingsRes, usersRes] = await Promise.all([
-        axios.get('http://localhost:5000/api/admin/bookings', { headers }),
-        axios.get('http://localhost:5000/api/admin/users', { headers })
+        axios.get(`${API_BASE_URL}/api/admin/bookings`, { headers }),
+        axios.get(`${API_BASE_URL}/api/admin/users`, { headers })
       ]);
       setBookings(bookingsRes.data);
       setUsers(usersRes.data);
@@ -46,7 +47,7 @@ const AdminDashboard = () => {
 
   const fetchBookings = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/admin/bookings', {
+      const res = await axios.get(`${API_BASE_URL}/api/admin/bookings`, {
         headers: { Authorization: `Bearer ${getToken()}` }
       });
       setBookings(res.data);
@@ -59,7 +60,7 @@ const AdminDashboard = () => {
   const handleStatusUpdate = async (id, newStatus) => {
     try {
       await axios.put(
-        `http://localhost:5000/api/admin/bookings/${id}`,
+        `${API_BASE_URL}/api/admin/bookings/${id}`,
         { status: newStatus },
         { headers: { Authorization: `Bearer ${getToken()}` } }
       );
@@ -70,7 +71,7 @@ const AdminDashboard = () => {
   const handleDelete = async (id) => {
     if (!window.confirm('Are you sure you want to delete this booking?')) return;
     try {
-      await axios.delete(`http://localhost:5000/api/admin/bookings/${id}`, {
+      await axios.delete(`${API_BASE_URL}/api/admin/bookings/${id}`, {
         headers: { Authorization: `Bearer ${getToken()}` }
       });
       fetchBookings();

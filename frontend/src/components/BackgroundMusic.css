@@ -8,24 +8,24 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    background: rgba(20, 12, 8, 0.75);
+    background: linear-gradient(135deg, #f5d5c8 0%, #e8b8a5 100%);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
-    border: 1px solid rgba(201, 154, 122, 0.4);
+    border: 1px solid rgba(232, 184, 165, 0.6);
     border-radius: 50px;
     padding: 10px 14px;
     cursor: pointer;
-    color: #fff;
+    color: #5a3a2a;
     font-size: 1.1rem;
-    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 4px 18px rgba(232, 184, 165, 0.55);
     transition: background 0.25s, transform 0.2s, box-shadow 0.25s;
     outline: none;
 }
 
 .music-toggle-btn:hover {
-    background: rgba(201, 154, 122, 0.85);
+    background: linear-gradient(135deg, #f8e0d8 0%, #edc4b0 100%);
     transform: translateY(-2px);
-    box-shadow: 0 6px 22px rgba(201, 154, 122, 0.45);
+    box-shadow: 0 6px 22px rgba(232, 184, 165, 0.7);
 }
 
 .music-toggle-btn:active {

@@ -1,56 +1,227 @@
-/* Floating container: Zapier embed above WhatsApp, bottom-right */
-.zapier-chatbot-fab {
-  position: fixed;
-  bottom: 1.5rem;
-  right: 1.5rem;
-  z-index: 999;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
+/* ═══════════════════════════════════════════════════════════
+   ZapierChatbot – floating panel + FAB buttons
+═══════════════════════════════════════════════════════════ */
+
+/* ── Backdrop (click-outside to close) ───────────────────── */
+.zc-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 9998;
+    background: rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    animation: zcFadeIn 0.2s ease;
 }
 
-/* Wrapper for the Zapier embed (popup mode – trigger button only) */
-.zapier-chatbot-embed-wrap {
-  position: relative;
-  display: inline-block;
-  min-height: 3.5rem;
-  border-radius: 1rem;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+@keyframes zcFadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
 }
 
-.zapier-chatbot-embed-wrap zapier-interfaces-chatbot-embed {
-  display: block;
+/* ── Chat panel ───────────────────────────────────────────── */
+.zc-panel {
+    position: fixed;
+    bottom: 7rem;          /* above the FAB */
+    right: 1.5rem;
+    z-index: 9999;
+    width: 400px;
+    height: 600px;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.25),
+        0 4px 16px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+
+    /* Hidden by default */
+    opacity: 0;
+    transform: translateY(20px) scale(0.97);
+    pointer-events: none;
+    transition:
+        opacity 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* WhatsApp icon – same style as before, below the embed */
-.zapier-chatbot-whatsapp {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 2.75rem;
-  height: 2.75rem;
-  background: #25d366;
-  color: #fff;
-  border-radius: 50%;
-  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.45);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+.zc-panel--open {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: all;
 }
 
-.zapier-chatbot-whatsapp--floating {
-  position: fixed;
-  right: 1.5rem;
-  /* Place WhatsApp ABOVE the chatbot button with safe spacing */
-  bottom: 6rem;
-  z-index: 1000;
+/* ── Panel header ─────────────────────────────────────────── */
+.zc-panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px;
+    background: linear-gradient(135deg, #1a0a05 0%, #3d1a0a 100%);
+    color: #fff;
+    flex-shrink: 0;
 }
 
-.zapier-chatbot-whatsapp:hover {
-  transform: scale(1.08);
-  box-shadow: 0 5px 20px rgba(37, 211, 102, 0.5);
-  color: #fff;
+.zc-panel-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.2px;
 }
 
-.zapier-chatbot-whatsapp-icon {
-  width: 1.5rem;
-  height: 1.5rem;
+.zc-panel-title-dot {
+    width: 9px;
+    height: 9px;
+    background: #4ade80;
+    border-radius: 50%;
+    box-shadow: 0 0 6px #4ade80;
+    flex-shrink: 0;
+    animation: zcPulse 2s ease-in-out infinite;
+}
+
+@keyframes zcPulse {
+    0%, 100% { box-shadow: 0 0 4px #4ade80; }
+    50%       { box-shadow: 0 0 10px #4ade80, 0 0 20px rgba(74, 222, 128, 0.4); }
+}
+
+/* ── Close button inside panel header ────────────────────── */
+.zc-close-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 50%;
+    color: #fff;
+    cursor: pointer;
+    padding: 0;
+    transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    flex-shrink: 0;
+}
+
+.zc-close-btn:hover {
+    background: rgba(255, 255, 255, 0.28);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    transform: scale(1.08);
+}
+
+.zc-close-btn:active {
+    transform: scale(0.95);
+}
+
+.zc-close-btn svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* ── Panel body (chatbot embed) ───────────────────────────── */
+.zc-panel-body {
+    flex: 1;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.zc-panel-body zapier-interfaces-chatbot-embed {
+    display: block;
+    flex: 1;
+    width: 100%;
+    height: 100%;
+}
+
+/* ── Floating action buttons ──────────────────────────────── */
+.zc-fab {
+    position: fixed;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.22s ease;
+    text-decoration: none;
+}
+
+/* WhatsApp FAB */
+.zc-fab--whatsapp {
+    width: 48px;
+    height: 48px;
+    background: #25d366;
+    color: #fff;
+    border-radius: 50%;
+    box-shadow: 0 4px 18px rgba(37, 211, 102, 0.5);
+    bottom: 6.5rem;
+    right: 1.5rem;
+}
+
+.zc-fab--whatsapp svg {
+    width: 26px;
+    height: 26px;
+}
+
+.zc-fab--whatsapp:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 24px rgba(37, 211, 102, 0.6);
+}
+
+/* Chat FAB */
+.zc-fab--chat {
+    width: 56px;
+    height: 56px;
+    background: linear-gradient(135deg, #f5d5c8 0%, #e8b8a5 100%);
+    color: #5a3a2a;
+    border-radius: 50%;
+    box-shadow: 0 6px 24px rgba(232, 184, 165, 0.65);
+    bottom: 1.5rem;
+    right: 1.5rem;
+}
+
+.zc-fab--chat svg {
+    width: 26px;
+    height: 26px;
+    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.zc-fab--chat:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 28px rgba(232, 184, 165, 0.75);
+}
+
+.zc-fab--chat.zc-fab--active {
+    background: linear-gradient(135deg, #f5d5c8 0%, #e8b8a5 100%);
+    box-shadow: 0 6px 24px rgba(232, 184, 165, 0.65);
+}
+
+.zc-fab--chat svg {
+    width: 26px;
+    height: 26px;
+}
+
+/* ── Mobile responsive ────────────────────────────────────── */
+@media (max-width: 480px) {
+    .zc-panel {
+        width: calc(100vw - 1rem);
+        height: 75vh;
+        right: 0.5rem;
+        left: 0.5rem;
+        bottom: 6rem;
+        border-radius: 18px;
+    }
+
+    .zc-fab--chat {
+        bottom: 1rem;
+        right: 1rem;
+        width: 52px;
+        height: 52px;
+    }
+
+    .zc-fab--whatsapp {
+        bottom: 6rem;
+        right: 1rem;
+        width: 44px;
+        height: 44px;
+    }
 }

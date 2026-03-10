@@ -144,8 +144,10 @@
   align-items: center;
   justify-content: center;
   background: rgba(255, 255, 255, 0.88);
+  border: none;
   border-radius: 50%;
   color: #c99a7a;
+  cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 3px 12px rgba(245, 213, 200, 0.35);
   text-decoration: none;

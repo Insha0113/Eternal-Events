@@ -3,6 +3,7 @@ import { useSearchParams, Link } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from '../AuthContext';
 import './BookEvent.css';
+import API_BASE_URL from '../api';
 
 // ── Validation helpers ────────────────────────────────────────────────────────
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -25,6 +26,8 @@ const validateFields = (formData) => {
   if (!rawPhone || !phoneRegex.test(rawPhone))
     errors.phone = 'Enter a valid mobile number';
   if (!formData.eventType) errors.eventType = 'Select event type';
+  if (formData.eventType === 'Other' && !formData.otherEventType.trim())
+    errors.otherEventType = 'Please describe your event type';
   if (!formData.eventDate || formData.eventDate < getTomorrow())
     errors.eventDate = 'Enter a valid date';
   if (!formData.eventTime) errors.eventTime = 'Enter a valid time';
@@ -37,7 +40,7 @@ const BookEvent = () => {
 
   const initialForm = {
     name: '', email: '', phone: '',
-    eventType: '', eventDate: '', eventTime: '',
+    eventType: '', otherEventType: '', eventDate: '', eventTime: '',
     numberOfGuests: '', services: '', message: ''
   };
 
@@ -152,7 +155,7 @@ const BookEvent = () => {
     }
 
     try {
-      await axios.post('http://localhost:5000/api/bookings/event', {
+      await axios.post(`${API_BASE_URL}/api/bookings/event`, {
         ...formData,
         userId: user.id
       });
@@ -162,7 +165,7 @@ const BookEvent = () => {
         name: `${user.firstName} ${user.lastName}`.trim(),
         email: user.email || '',
         phone: user.mobile || '',
-        eventType: '', eventDate: '', eventTime: '',
+        eventType: '', otherEventType: '', eventDate: '', eventTime: '',
         numberOfGuests: '', services: '', message: ''
       });
       setFieldErrors({});
@@ -351,6 +354,25 @@ const BookEvent = () => {
                 <option value="Other">Other</option>
               </select>
             </div>
+
+            {/* Other Event Type - shown only when Other is selected */}
+            {formData.eventType === 'Other' && (
+              <div className="form-group other-event-type-group">
+                <label htmlFor="otherEventType">Please specify your event type *</label>
+                {fieldErrors.otherEventType && <span className="field-error-msg">{fieldErrors.otherEventType}</span>}
+                <input
+                  type="text"
+                  id="otherEventType"
+                  name="otherEventType"
+                  value={formData.otherEventType}
+                  onChange={handleChange}
+                  onFocus={handleFieldFocus}
+                  className={fieldErrors.otherEventType ? 'input-error' : ''}
+                  placeholder="e.g. Baby Shower, Reunion, Farewell..."
+                  autoFocus
+                />
+              </div>
+            )}
 
             {/* Date & Time */}
             <div className="form-row">

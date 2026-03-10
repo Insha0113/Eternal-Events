@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './AdminLogin.css';
+import API_BASE_URL from '../api';
 
 const AdminLogin = () => {
   const [credentials, setCredentials] = useState({ username: '', password: '' });
@@ -19,7 +20,7 @@ const AdminLogin = () => {
     e.preventDefault();
     setError('');
     try {
-      const response = await axios.post('http://localhost:5000/api/admin/login', credentials);
+      const response = await axios.post(`${API_BASE_URL}/api/admin/login`, credentials);
       localStorage.setItem('adminToken', response.data.token);
       localStorage.setItem('adminUsername', response.data.username);
       navigate('/admin/dashboard');
@@ -34,7 +35,7 @@ const AdminLogin = () => {
     setError('');
     setSuccessMsg('');
     try {
-      const res = await axios.post('http://localhost:5000/api/admin/forgot-password');
+      const res = await axios.post(`${API_BASE_URL}/api/admin/forgot-password`);
       setSuccessMsg(res.data.message);
     } catch (err) {
       setError(err.response?.data?.error || 'Failed to send reset email. Please try again.');
@@ -49,7 +50,7 @@ const AdminLogin = () => {
     setError('');
     setSuccessMsg('');
     try {
-      const res = await axios.post('http://localhost:5000/api/admin/forgot-username');
+      const res = await axios.post(`${API_BASE_URL}/api/admin/forgot-username`);
       setSuccessMsg(res.data.message);
     } catch (err) {
       setError(err.response?.data?.error || 'Failed to send username email. Please try again.');

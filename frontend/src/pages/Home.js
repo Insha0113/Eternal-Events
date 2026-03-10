@@ -3,7 +3,7 @@ import * as THREE from "three";
 import { Link } from "react-router-dom";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { useGLTF } from "@react-three/drei";
-import { EffectComposer, Bloom } from "@react-three/postprocessing";
+
 import { Bounds } from "@react-three/drei";
 
 
@@ -142,8 +142,8 @@ const Scene3D = React.forwardRef((props, ref) => {
 /* ---------------- HOME ---------------- */
 const Home = () => {
   const sceneRef = useRef();
-  const cameraRef = useRef();
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  // currentImageIndex is always 0 (carousel auto-advance removed; value never changed)
+  const currentImageIndex = 0;
 
   // Section fade-in
   const momentsRef = useRef(null);
@@ -369,45 +369,5 @@ const Home = () => {
   );
 };
 
-<footer className="footer">
-  {/* ROW 1: Logo LEFT + Links RIGHT */}
-  <div className="footer-top-row">
-    <div className="footer-logo">
-      <img src={logo} alt="Eternal Vows Events" />
-    </div>
-    <div className="footer-links">
-      <Link to="/">Home</Link>
-      <Link to="/about">About Us</Link>
-      <Link to="/services">Our Services</Link>
-      <Link to="/gallery">Gallery</Link>
-      <Link to="/book-event">Book Event</Link>
-    </div>
-  </div>
-
-  {/* ROW 2: Find Us LEFT + Visit Us RIGHT */}
-  <div className="footer-middle-row">
-    <div className="find-us">
-      <p>Eternal Vows Events, near Kadavantra Sub Post Office, Girinagar,<br />
-        Kadavantra, Kochi, Kerala, 682020.</p>
-    </div>
-    <div className="visit-us">
-      <p>Visit Us</p>
-      {/* Your map here */}
-    </div>
-  </div>
-
-  {/* ROW 3: Contact LEFT + Social RIGHT */}
-  <div className="footer-bottom-row">
-    <div className="contact-details">
-      <p>For more details: Contact</p>
-    </div>
-    <div className="social-links">
-      <a href="#"><img src="instagram.png" /></a>
-      <a href="#"><img src="twitter.png" /></a>
-      <a href="#"><img src="whatsapp.png" /></a>
-    </div>
-  </div>
-</footer>
-
-
 export default Home;
+
