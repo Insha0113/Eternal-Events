@@ -3,6 +3,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { useGoogleLogin } from '@react-oauth/google';
 import { useAuth } from '../AuthContext';
+import API_BASE_URL from '../api';
 import './SignUp.css';
 
 const SignUp = () => {
@@ -43,7 +44,7 @@ const SignUp = () => {
 
         setLoading(true);
         try {
-            const { data } = await axios.post('/api/auth/signup', {
+            const { data } = await axios.post(`${API_BASE_URL}/api/auth/signup`, {
                 firstName: form.firstName,
                 lastName: form.lastName,
                 mobile: form.mobile,
@@ -70,7 +71,7 @@ const SignUp = () => {
                 });
                 const googleUser = await userInfoRes.json();
                 // Send to backend
-                const { data } = await axios.post('/api/auth/google', {
+                const { data } = await axios.post(`${API_BASE_URL}/api/auth/google`, {
                     googleUser: {
                         email: googleUser.email,
                         name: googleUser.name,

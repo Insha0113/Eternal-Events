@@ -3,6 +3,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { useGoogleLogin } from '@react-oauth/google';
 import { useAuth } from '../AuthContext';
+import API_BASE_URL from '../api';
 import './SignUp.css';
 
 const Login = () => {
@@ -26,7 +27,7 @@ const Login = () => {
         setError('');
         setLoading(true);
         try {
-            const { data } = await axios.post('/api/auth/login', {
+            const { data } = await axios.post(`${API_BASE_URL}/api/auth/login`, {
                 username: form.username,
                 password: form.password
             });
@@ -48,7 +49,7 @@ const Login = () => {
                     headers: { Authorization: `Bearer ${tokenResponse.access_token}` }
                 });
                 const googleUser = await userInfoRes.json();
-                const { data } = await axios.post('/api/auth/google', {
+                const { data } = await axios.post(`${API_BASE_URL}/api/auth/google`, {
                     googleUser: {
                         email: googleUser.email,
                         name: googleUser.name,
