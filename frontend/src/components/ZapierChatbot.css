@@ -26,6 +26,8 @@
     z-index: 9999;
     width: 400px;
     height: 600px;
+    /* Prevent panel from going off the top of the screen */
+    max-height: calc(100vh - 9rem);
     background: #fff;
     border-radius: 20px;
     box-shadow:
@@ -207,6 +209,7 @@
     .zc-panel {
         width: calc(100vw - 1rem);
         height: 75vh;
+        max-height: calc(100vh - 8.5rem);
         right: 0.5rem;
         left: 0.5rem;
         bottom: 8rem;     /* above chat FAB */

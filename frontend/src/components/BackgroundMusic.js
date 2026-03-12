@@ -68,7 +68,25 @@ const BackgroundMusic = () => {
         };
     }, []);
 
-    // ── On mobile, start on first user interaction (touch, click, scroll) ───
+    // ── Pause when user switches app / tab; resume when they return ──────────
+    useEffect(() => {
+        const handleVisibilityChange = () => {
+            const audio = audioRef.current;
+            if (!audio) return;
+            if (document.hidden) {
+                // User switched away — pause immediately
+                audio.pause();
+            } else {
+                // User returned — resume only if we were playing and not muted by choice
+                if (playing && !isMuted) {
+                    audio.play().catch(() => {});
+                }
+            }
+        };
+        document.addEventListener('visibilitychange', handleVisibilityChange);
+        return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
+    }, [playing, isMuted]);
+
     useEffect(() => {
         if (!blocked) return;
 
