@@ -84,7 +84,7 @@ const BookEvent = () => {
   useEffect(() => {
     if (user && token) {
       setLoadingBookings(true);
-      axios.get('/api/auth/mybookings', {
+      axios.get(`${API_BASE_URL}/api/auth/mybookings`, {
         headers: { Authorization: `Bearer ${token}` }
       })
         .then(res => setMyBookings(res.data))
@@ -94,6 +94,7 @@ const BookEvent = () => {
       setMyBookings([]);
     }
   }, [user, token, refreshBookings]);
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
