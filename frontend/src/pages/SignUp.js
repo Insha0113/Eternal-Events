@@ -6,6 +6,9 @@ import { useAuth } from '../AuthContext';
 import API_BASE_URL from '../api';
 import './SignUp.css';
 
+// Show Google button only when the real client ID is configured
+const GOOGLE_CONFIGURED = !!process.env.REACT_APP_GOOGLE_CLIENT_ID;
+
 const SignUp = () => {
     const navigate = useNavigate();
     const location = useLocation();
@@ -108,7 +111,8 @@ const SignUp = () => {
                         <p className="auth-subtitle">Join Eternal Events and start planning your dream event</p>
                     </div>
 
-                    {/* Google Sign Up */}
+                    {/* Google Sign Up — only shown when OAuth is configured */}
+                    {GOOGLE_CONFIGURED && (
                     <button
                         type="button"
                         className="google-btn"
@@ -127,10 +131,13 @@ const SignUp = () => {
                         )}
                         Sign Up with Google
                     </button>
+                    )}
 
+                    {GOOGLE_CONFIGURED && (
                     <div className="auth-divider">
                         <span>or</span>
                     </div>
+                    )}
 
                     <form onSubmit={handleSubmit} className="auth-form">
                         <div className="form-row">
