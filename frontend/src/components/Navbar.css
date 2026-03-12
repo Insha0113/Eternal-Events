@@ -52,6 +52,8 @@
   flex-shrink: 0;
   /* Push logo to the left edge; menu fills remaining space */
   margin-right: auto;
+  /* Remove blue tap highlight on mobile */
+  -webkit-tap-highlight-color: transparent;
 }
 
 .navbar-logo:hover {
@@ -185,6 +187,8 @@
   border-radius: 50%;
   background: transparent;
   transition: all 0.25s ease;
+  /* Remove blue tap highlight on mobile */
+  -webkit-tap-highlight-color: transparent;
 }
 
 .login-icon-btn:hover {
